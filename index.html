@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Subash Jayana Shrestha — Sydney-based Social Media Strategist, Content Strategist and Digital Marketing Specialist. Meta Ads, short-form video, and campaign performance.">
 <title>Subash Jayana Shrestha — Digital Marketing Strategist</title>
 <style>
 :root{
@@ -9,8 +15,8 @@
   --font-body: system-ui, "Segoe UI", -apple-system, Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
 }
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
 body{margin:0; background:var(--bg); color:var(--text); font-family:var(--font-body); -webkit-font-smoothing:antialiased;}
 h1,h2,h3,h4{font-family:var(--font-display); font-weight:700; letter-spacing:-0.01em; margin:0;}
 .mono{font-family:var(--font-mono); font-variant-numeric:tabular-nums;}
@@ -24,8 +30,24 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:r
 .brand{font-weight:700; font-size:15px; font-family:var(--font-display);}
 .nav-links{display:flex; gap:24px; font-size:13px; color:var(--text-soft);}
 .nav-links a:hover{color:var(--coral);}
-@media(max-width:680px){.nav-links{display:none;}}
-.nav-cta{font-size:12.5px; font-weight:600; background:var(--text); color:#101012; padding:9px 16px; border-radius:20px;}
+.nav-right{display:flex; align-items:center; gap:14px;}
+.nav-cta{font-size:12.5px; font-weight:600; background:var(--text); color:#101012; padding:10px 16px; border-radius:20px; white-space:nowrap;}
+.nav-toggle{display:none; flex-direction:column; justify-content:center; gap:5px; width:38px; height:38px; background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block; width:20px; height:2px; margin:0 auto; background:var(--text); border-radius:2px; transition:transform .25s ease, opacity .25s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:680px){
+  .nav-toggle{display:flex;}
+  .nav-links{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; gap:0; background:var(--card);
+    border-bottom:1px solid var(--line); padding:4px 24px 12px;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 0; border-top:1px solid var(--line); font-size:14.5px;}
+  .nav-links a:first-child{border-top:none;}
+}
 
 .hero{padding:70px 0 40px;}
 .hero-eyebrow{font-size:12.5px; color:var(--text-faint); margin-bottom:14px;}
@@ -37,6 +59,14 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:r
 .bento{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-top:34px; margin-bottom:60px;}
 @media(max-width:900px){.bento{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:560px){.bento{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:420px){
+  .wrap{padding:0 16px;}
+  .bento{gap:10px;}
+  .cell{padding:18px;}
+  .nav-inner{padding:14px 16px;}
+  .contact-cell{padding:36px 20px;}
+  .hero{padding:44px 0 28px;}
+}
 
 .cell{
   background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
@@ -56,7 +86,7 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:r
 .c-hero-text{grid-column:span 4;}
 .c-hero-text p{color:var(--text-soft); font-size:15px; line-height:1.7; margin-top:12px;}
 .cta-row{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
-.btn{font-size:12.5px; font-weight:600; padding:11px 18px; border-radius:20px;}
+.btn{font-size:12.5px; font-weight:600; padding:13px 18px; border-radius:20px; display:inline-flex; align-items:center; justify-content:center; min-height:44px;}
 .btn-fill{background:var(--text); color:#101012;}
 .btn-fill:hover{background:var(--coral); color:#fff;}
 .btn-line{border:1px solid var(--line);}
@@ -69,13 +99,15 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:r
 .c-wide{grid-column:span 3;}
 .c-full{grid-column:span 6;}
 @media(max-width:900px){.c-hero-text{grid-column:span 3;} .c-wide{grid-column:span 3;} .c-full{grid-column:span 3;}}
-@media(max-width:560px){.c-photo{grid-column:span 2;} .c-hero-text{grid-column:span 2;} .c-wide{grid-column:span 2;} .c-full{grid-column:span 2;} .c-stat{grid-column:span 1;}}
+@media(max-width:560px){.c-photo{grid-column:span 2; grid-row:span 1; min-height:200px;} .c-hero-text{grid-column:span 2;} .c-wide{grid-column:span 2;} .c-full{grid-column:span 2;} .c-stat{grid-column:span 1;}}
 
 .tag-dot{display:inline-flex; align-items:center; gap:7px; font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;}
 .tag-dot i{width:7px; height:7px; border-radius:50%;}
 
 /* about cell content */
 .c-about p{font-size:14.5px; color:var(--text-soft); line-height:1.75; margin:0 0 14px;}
+.about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:32px;}
+@media(max-width:800px){.about-grid{grid-template-columns:1fr; gap:28px;}}
 mark.hl{background:rgba(255,107,74,0.16); color:var(--coral); padding:1px 6px; border-radius:5px; font-weight:600;}
 .value-list{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px;}
 @media(max-width:700px){.value-list{grid-template-columns:1fr;}}
@@ -102,8 +134,8 @@ mark.hl{background:rgba(255,107,74,0.16); color:var(--coral); padding:1px 6px; b
 /* chart bars */
 .chart-cols{display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:16px;}
 @media(max-width:700px){.chart-cols{grid-template-columns:1fr;}}
-.bar-row{display:grid; grid-template-columns:120px 1fr 46px; align-items:center; gap:10px; margin-bottom:12px;}
-.bar-row .l{font-size:11px; color:var(--text-soft);}
+.bar-row{display:grid; grid-template-columns:minmax(68px,120px) 1fr minmax(38px,46px); align-items:center; gap:8px; margin-bottom:12px;}
+.bar-row .l{font-size:11px; color:var(--text-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .bar-track{height:8px; background:var(--bg); border-radius:20px; overflow:hidden;}
 .bar-track i{display:block; height:100%; width:0%; border-radius:20px; transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
 .bar-row .v{font-size:11.5px; font-weight:700; text-align:right;}
@@ -111,6 +143,7 @@ mark.hl{background:rgba(255,107,74,0.16); color:var(--coral); padding:1px 6px; b
 /* skills */
 .skill-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px;}
 @media(max-width:700px){.skill-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.skill-grid{grid-template-columns:1fr;}}
 .skill-pill{background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:14px;}
 .skill-pill .top{display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:8px;}
 .skill-pill .top b{font-weight:600;}
@@ -121,6 +154,10 @@ mark.hl{background:rgba(255,107,74,0.16); color:var(--coral); padding:1px 6px; b
 .exp-row{display:grid; grid-template-columns:130px 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--line);}
 .exp-row:first-child{border-top:none;}
 .exp-date{font-size:11px; color:var(--text-faint);}
+@media(max-width:560px){
+  .exp-row{grid-template-columns:1fr; gap:4px;}
+  .exp-date{order:-1;}
+}
 .exp-row h4{font-size:14.5px;}
 .exp-org{font-size:12px; color:var(--coral); font-weight:600; margin:2px 0 6px;}
 .exp-row p{font-size:12.5px; color:var(--text-soft); margin:0; line-height:1.6;}
@@ -186,18 +223,26 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
   html{scroll-behavior:auto;}
   .reveal{opacity:1; transform:none; transition:none;}
   .cell, .social-btn, .post-card{transition:none;}
+  .nav-toggle span{transition:none;}
   .bar-track i, .skill-track i{transition:none;}
   .c-status i{animation:none;}
 }
 </style>
+</head>
+<body>
 
 <nav>
   <div class="nav-inner">
     <div class="brand">Subash JS</div>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="#about">About</a><a href="#work">Campaigns</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#blog">Blog</a><a href="#connect">Connect</a>
     </div>
-    <a href="#message" class="nav-cta">Let's talk</a>
+    <div class="nav-right">
+      <a href="#message" class="nav-cta">Let's talk</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -230,7 +275,7 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
     <!-- ABOUT -->
     <div class="cell c-full glow reveal" id="about">
       <div class="tag-dot"><i style="background:var(--violet);"></i>About &amp; Value</div>
-      <div class="c-about" style="display:grid; grid-template-columns:1.3fr 1fr; gap:32px;">
+      <div class="c-about about-grid">
         <div>
           <p>My interest in digital marketing started with a simple question: <i>why do some campaigns convert and others don't?</i> That question turned into a career built around data and analytics — using audience insights, targeting and creative testing to work out not just how to get a brand in front of people, but in front of the <mark class="hl">right</mark> people, and to turn that attention into leads, sales and repeat customers.</p>
           <p>Four years in, that's still what pulls me in: watching a dashboard tell you a story about a campaign, and using that story to shape the next hook, the next audience segment, the next ad. I've managed social accounts end-to-end, run Meta Ads lead-gen and awareness flights, filmed and edited <mark class="hl">500+ Reels</mark>, and reported results back in language non-marketers can act on — always with the same goal: make the data work harder for the brand it's attached to.</p>
@@ -416,6 +461,20 @@ const io=new IntersectionObserver(es=>{es.forEach(en=>{
 });},{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+function closeNav(){
+  navLinks.classList.remove('open');
+  navToggle.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}
+navToggle.addEventListener('click', ()=>{
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeNav));
+
 document.getElementById('contact-form').addEventListener('submit', e=>{
   e.preventDefault();
   const name = document.getElementById('cf-name').value.trim();
@@ -427,3 +486,5 @@ document.getElementById('contact-form').addEventListener('submit', e=>{
   window.location.href = `mailto:contact.subashwork@gmail.com?subject=${subject}&body=${body}`;
 });
 </script>
+</body>
+</html>
