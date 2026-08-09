@@ -349,57 +349,65 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
   background:linear-gradient(90deg,var(--coral),var(--pink));
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
-.statement-sub{font-size:14px; color:var(--text-soft); max-width:42ch; margin:14px 0 0;}
+.statement-sub{font-size:14px; color:var(--text-soft); max-width:46ch; margin:14px 0 0;}
 
-/* ---------------- journey timeline ---------------- */
-.journey-chart{position:relative; margin-top:34px; padding-left:2px;}
-.journey-chart::before{
-  content:''; position:absolute; left:11px; top:8px; bottom:8px; width:2px;
-  background:linear-gradient(180deg,var(--coral),var(--pink),var(--violet),var(--sky));
-  transform-origin:top; transform:scaleY(0); transition:transform 1.8s cubic-bezier(.22,.8,.2,1);
+/* ---------------- hook duel (interactive) ---------------- */
+.duel{margin-top:28px;}
+.duel-progress{font-size:11px; color:var(--text-faint); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.06em;}
+.duel-options{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.duel-options[hidden]{display:none;}
+@media(max-width:700px){.duel-options{grid-template-columns:1fr;}}
+.duel-option{
+  text-align:left; background:var(--bg); border:1px solid var(--line); border-radius:14px;
+  padding:20px; cursor:pointer; font-family:var(--font-body); color:var(--text);
+  display:flex; flex-direction:column; gap:10px; align-items:flex-start;
+  transition:border-color .2s ease, transform .2s ease, background .2s ease;
 }
-.reveal.in .journey-chart::before{transform:scaleY(1);}
-.journey-item{
-  display:grid; grid-template-columns:24px minmax(0,1fr); column-gap:18px; padding-bottom:26px;
-  opacity:0; transform:translateX(-12px); transition:opacity .5s ease, transform .5s ease;
-}
-.journey-body{min-width:0;}
-.journey-item:last-child{padding-bottom:0;}
-.reveal.in .journey-item{opacity:1; transform:none;}
-.journey-item:nth-child(1){transition-delay:.1s;}
-.journey-item:nth-child(2){transition-delay:.35s;}
-.journey-item:nth-child(3){transition-delay:.6s;}
-.journey-item:nth-child(4){transition-delay:.85s;}
-.journey-item:nth-child(5){transition-delay:1.1s;}
-.journey-item:nth-child(6){transition-delay:1.35s;}
-.journey-item:nth-child(7){transition-delay:1.6s;}
-.journey-dot{width:16px; height:16px; border-radius:50%; background:var(--card); border:2px solid var(--coral); justify-self:center; margin-top:3px; z-index:1;}
-.journey-now .journey-dot{border-color:var(--lime); box-shadow:0 0 0 5px rgba(198,255,107,0.16); animation:blink 1.8s infinite;}
-.journey-year{font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.04em; color:var(--text-faint); margin-bottom:3px;}
-.journey-body h4{font-size:15px; margin:0 0 2px; font-family:var(--font-display);}
-.journey-org{font-size:11.5px; color:var(--coral); font-weight:600; margin-bottom:5px;}
-.journey-body p{font-size:12.5px; color:var(--text-soft); margin:0; line-height:1.6; max-width:52ch;}
+.duel-option:hover:not(:disabled){border-color:var(--coral); transform:translateY(-2px);}
+.duel-option:disabled{cursor:default;}
+.duel-label{font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; font-family:var(--font-mono);}
+.duel-text{font-size:14.5px; line-height:1.5; font-weight:600;}
+.duel-option.is-correct{border-color:var(--lime); background:rgba(198,255,107,0.06);}
+.duel-tag{display:inline-flex; align-items:center; gap:5px; font-size:10px; font-family:var(--font-mono); padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.04em;}
+.duel-tag.correct{background:rgba(198,255,107,0.15); color:var(--lime);}
+.duel-tag.picked{background:rgba(107,184,255,0.15); color:var(--sky);}
+.duel-reveal{margin-top:22px; padding-top:20px; border-top:1px dashed var(--line); opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .35s ease, transform .35s ease;}
+.duel-reveal.show{pointer-events:auto;}
+.duel-reveal.show{opacity:1; transform:none;}
+.duel-verdict{font-family:var(--font-display); font-size:17px; font-weight:700; margin-bottom:8px;}
+.duel-insight{font-size:13.5px; color:var(--text-soft); line-height:1.65; margin:0 0 18px; max-width:60ch;}
+.duel-final{margin-top:22px; padding-top:20px; border-top:1px dashed var(--line);}
+.duel-score{font-family:var(--font-mono); font-size:13px; color:var(--coral); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.05em;}
+.duel-final p{font-size:14.5px; color:var(--text-soft); line-height:1.6; max-width:56ch; margin:0 0 18px;}
 @media (prefers-reduced-motion: reduce){
-  .journey-chart::before{transition:none;}
-  .journey-item{transition:none; opacity:1; transform:none;}
+  .duel-option{transition:none;}
+  .duel-reveal{transition:none;}
 }
 
-/* ---------------- capability fit summary ---------------- */
-.fit-tabs{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 20px; list-style:none; padding:0;}
-.fit-tab{
-  font-family:var(--font-body); font-size:12.5px; font-weight:600; padding:10px 16px;
-  border-radius:20px; border:1px solid var(--line); background:var(--bg); color:var(--text-soft);
-  cursor:pointer; transition:border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+/* ---------------- capability checklist (interactive) ---------------- */
+.fit-checklist{display:flex; flex-direction:column; margin-top:18px; border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+.fit-item{display:block; position:relative; padding:16px 20px; background:var(--bg); cursor:pointer; border-bottom:1px solid var(--line); transition:background .2s ease;}
+.fit-item:last-child{border-bottom:none;}
+.fit-item:hover{background:var(--card-hi);}
+.fit-item input{position:absolute; opacity:0; width:0; height:0;}
+.fit-need{position:relative; display:flex; align-items:flex-start; gap:12px; font-size:14px; font-weight:600; color:var(--text); line-height:1.5;}
+.fit-box{position:relative; flex-shrink:0; width:18px; height:18px; margin-top:2px; border-radius:5px; border:2px solid var(--line); transition:background .2s ease, border-color .2s ease;}
+.fit-box::after{content:''; position:absolute; left:4px; top:0px; width:6px; height:10px; border-right:2px solid var(--bg); border-bottom:2px solid var(--bg); transform:rotate(40deg); opacity:0; transition:opacity .15s ease;}
+.fit-item input:checked ~ .fit-need .fit-box{background:var(--coral); border-color:var(--coral);}
+.fit-item input:checked ~ .fit-need .fit-box::after{opacity:1;}
+.fit-proof{
+  display:block; margin:0 0 0 30px; max-height:0; opacity:0; overflow:hidden;
+  font-size:12.5px; color:var(--text-soft); line-height:1.6; transition:max-height .3s ease, opacity .3s ease, margin-top .3s ease;
 }
-.fit-tab:hover{border-color:var(--coral); color:var(--text); transform:translateY(-1px);}
-.fit-tab[aria-selected="true"]{background:var(--text); color:var(--bg); border-color:var(--text);}
-.fit-panel{background:var(--bg); border:1px solid var(--line); border-radius:16px; padding:24px;}
-.fit-text{font-size:14.5px; color:var(--text-soft); line-height:1.7; margin:0 0 20px; min-height:5.6em; transition:opacity .25s ease, transform .25s ease;}
-.fit-text.fading{opacity:0; transform:translateY(4px);}
-.fit-stats{display:flex; flex-wrap:wrap; gap:28px; padding-top:18px; border-top:1px dashed var(--line);}
-.fit-stat .n{display:block; font-family:var(--font-display); font-size:21px; font-weight:700; color:var(--coral); line-height:1;}
-.fit-stat .l{font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.04em; margin-top:5px; display:block;}
-@media (prefers-reduced-motion: reduce){.fit-text{transition:none;}}
+.fit-item input:checked ~ .fit-proof{max-height:80px; opacity:1; margin-top:8px;}
+.fit-verdict{
+  margin-top:20px; padding:22px; border-radius:14px; background:var(--bg); border:1px solid var(--line);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;
+  opacity:0; transform:translateY(8px); max-height:0; overflow:hidden; transition:opacity .35s ease, transform .35s ease;
+}
+.fit-verdict.show{opacity:1; transform:none; max-height:200px; margin-top:20px;}
+.fit-verdict p{margin:0; font-size:14.5px; font-weight:600; color:var(--text); max-width:36ch;}
+@media (prefers-reduced-motion: reduce){.fit-proof, .fit-verdict, .fit-box::after{transition:none;}}
 .footer-meta-row{display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding-top:20px; border-top:1px solid var(--line); font-size:11px; color:var(--text-faint);}
 .footer-meta-row a{color:var(--text-soft); border-bottom:1px solid var(--line);}
 .footer-meta-row a:hover{color:var(--coral); border-color:var(--coral);}
@@ -599,64 +607,31 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
       <div class="exp-row"><div class="exp-date mono">APR 2020 – JUL 2022</div><div><h4>Digital Marketing Strategist</h4><div class="exp-org">Gyapu Marketplace</div><p><mark class="hl">Promoted within 16 months</mark> of starting; multi-channel campaigns across social, email &amp; SMS.</p></div></div>
     </div>
 
-    <!-- STATEMENT / JOURNEY -->
+    <!-- STATEMENT / HOOK DUEL -->
     <div class="cell c-full glow reveal" id="journey">
       <p class="statement">Growth doesn't happen by accident — <span class="accent">it's designed.</span></p>
-      <p class="statement-sub">Four years, six brands, one repeated pattern — research the audience, ship the content, read the data, do it again. Here's how that actually played out.</p>
-      <div class="journey-chart">
-        <div class="journey-item">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2018</div>
-            <h4>Business Development Officer</h4>
-            <div class="journey-org">Prabhidee Innovations</div>
-            <p>Where it started — client communications and market research, not yet social media.</p>
-          </div>
+      <p class="statement-sub">Every Reel opens with a hook I chose on purpose. Play a round — pick the one you think keeps someone watching, then see the pattern behind the call.</p>
+      <div class="duel" id="duel">
+        <div class="duel-progress mono" id="duel-progress">Round 1 of 3</div>
+        <div class="duel-options" id="duel-options">
+          <button class="duel-option" data-choice="a">
+            <span class="duel-label">Hook A</span>
+            <span class="duel-text" id="duel-text-a"></span>
+          </button>
+          <button class="duel-option" data-choice="b">
+            <span class="duel-label">Hook B</span>
+            <span class="duel-text" id="duel-text-b"></span>
+          </button>
         </div>
-        <div class="journey-item">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2020</div>
-            <h4>Social Media Executive → Digital Marketing Strategist</h4>
-            <div class="journey-org">Gyapu Marketplace</div>
-            <p>First real social media role — promoted internally within 16 months for initiative and results.</p>
-          </div>
+        <div class="duel-reveal" id="duel-reveal">
+          <div class="duel-verdict" id="duel-verdict"></div>
+          <p class="duel-insight" id="duel-insight"></p>
+          <button class="btn btn-fill" id="duel-next">Next round →</button>
         </div>
-        <div class="journey-item">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2022</div>
-            <h4>Digital Marketing Lead</h4>
-            <div class="journey-org">Space 4K Television</div>
-            <p>Real-time content for a live broadcast newsroom — fast turnaround, zero room for error.</p>
-          </div>
-        </div>
-        <div class="journey-item">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2023</div>
-            <h4>Digital Marketing Manager</h4>
-            <div class="journey-org">EDF Admissions</div>
-            <p>Scaled lead-generation Meta Ads across three countries, backed by email nurture sequences.</p>
-          </div>
-        </div>
-        <div class="journey-item">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2025</div>
-            <h4>Digital Marketing Manager</h4>
-            <div class="journey-org">Mophones</div>
-            <p>Owned content and paid strategy end-to-end — from the first Reel script to the ad spend report.</p>
-          </div>
-        </div>
-        <div class="journey-item journey-now">
-          <div class="journey-dot"></div>
-          <div class="journey-body">
-            <div class="journey-year mono">2026</div>
-            <h4>Open to the next chapter</h4>
-            <div class="journey-org">Sydney, Australia</div>
-            <p>New market, same 4+ years of tested experience — looking for the team that wants it from day one.</p>
-          </div>
+        <div class="duel-final" id="duel-final" hidden>
+          <div class="duel-score" id="duel-score"></div>
+          <p>This is the same pattern-matching behind every Reel and ad creative I ship — not a guess, a system.</p>
+          <button class="btn btn-line" id="duel-replay">Play again ↻</button>
         </div>
       </div>
     </div>
@@ -704,18 +679,40 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
       </div>
     </div>
 
-    <!-- CAPABILITY FIT -->
+    <!-- WHY HIRE ME -->
     <div class="cell c-full glow reveal" id="fit">
-      <div class="tag-dot"><i style="background:var(--violet);"></i>What I'm capable of</div>
-      <p class="camp-note">Tell me what you're hiring for — I'll tell you how 4+ years lines up.</p>
-      <div class="fit-tabs" role="tablist" aria-label="What I'm capable of">
-        <button class="fit-tab" role="tab" id="fit-tab-content" aria-selected="true" aria-controls="fit-panel" data-fit="content">Content &amp; Reels</button>
-        <button class="fit-tab" role="tab" id="fit-tab-ads" aria-selected="false" aria-controls="fit-panel" data-fit="ads">Meta Ads &amp; Performance</button>
-        <button class="fit-tab" role="tab" id="fit-tab-fullfunnel" aria-selected="false" aria-controls="fit-panel" data-fit="fullfunnel">Full-Funnel Ownership</button>
+      <div class="tag-dot"><i style="background:var(--violet);"></i>Why hire me</div>
+      <p class="camp-note">Check what you actually need — I'll show you the receipts.</p>
+      <div class="fit-checklist" id="fit-checklist">
+        <label class="fit-item">
+          <input type="checkbox" data-fit-check>
+          <span class="fit-need"><span class="fit-box"></span><span>I need someone who can shoot <em>and</em> edit Reels — not just plan them.</span></span>
+          <span class="fit-proof">500+ Reels scripted, filmed, and edited solo. No production team, no hand-offs.</span>
+        </label>
+        <label class="fit-item">
+          <input type="checkbox" data-fit-check>
+          <span class="fit-need"><span class="fit-box"></span><span>I need Meta Ads that convert, not just look good.</span></span>
+          <span class="fit-proof">Leads at $0.24–$0.42 per lead, reach past 900K on a single flight — tracked in Ads Manager, not estimated.</span>
+        </label>
+        <label class="fit-item">
+          <input type="checkbox" data-fit-check>
+          <span class="fit-need"><span class="fit-box"></span><span>I need someone based in Sydney who can start now.</span></span>
+          <span class="fit-proof">Already relocated to Parramatta. Full AU work rights. Open to junior–mid roles today.</span>
+        </label>
+        <label class="fit-item">
+          <input type="checkbox" data-fit-check>
+          <span class="fit-need"><span class="fit-box"></span><span>I need one person to own the whole function, not a slice of it.</span></span>
+          <span class="fit-proof">Strategy, content, paid, and reporting — solo, across 6 brands and 5 industries.</span>
+        </label>
+        <label class="fit-item">
+          <input type="checkbox" data-fit-check>
+          <span class="fit-need"><span class="fit-box"></span><span>I need proof, not a portfolio deck.</span></span>
+          <span class="fit-proof">Every campaign number on this site is sourced from live Meta Ads Manager reporting.</span>
+        </label>
       </div>
-      <div class="fit-panel" id="fit-panel" role="tabpanel">
-        <p class="fit-text" id="fit-text"></p>
-        <div class="fit-stats" id="fit-stats"></div>
+      <div class="fit-verdict" id="fit-verdict">
+        <p id="fit-verdict-text"></p>
+        <a href="#message" class="btn btn-fill">Let's talk about the role →</a>
       </div>
     </div>
 
@@ -1094,40 +1091,119 @@ updateScrollProgress();
   });
 })();
 
-/* ---- capability fit tabs ---- */
-const FIT_DATA = {
-  content: {
-    text: "I ideate, film, script, and edit short-form video myself — no production team required. Over 4+ years that's meant 500+ Reels across Instagram, Facebook, TikTok, and LinkedIn, each one built around a hook that earns the first three seconds.",
-    stats: [{n:'500+', l:'Reels shipped'}, {n:'4', l:'Platforms'}, {n:'CapCut', l:'Edited in'}],
+/* ---- hook duel (interactive) ---- */
+const DUEL_ROUNDS = [
+  {
+    a: "5 Tips for Better Content",
+    b: "I posted this Reel with 0 followers. Here's what happened in 24 hours.",
+    correct: 'b',
+    verdict: "Hook B wins.",
+    insight: "Specific outcomes beat generic tips. A number and a timeframe give people a reason to stay for the reveal.",
   },
-  ads: {
-    text: "I run Meta Ads Manager end-to-end — audience targeting, creative testing, budget pacing — for both lead-gen and awareness flights. Real campaigns have posted leads from $0.24–$0.42 and reach past 900K on a single flight.",
-    stats: [{n:'1,000+', l:'Leads generated'}, {n:'1.8M+', l:'People reached'}, {n:'$0.24', l:'Lowest cost/lead'}],
+  {
+    a: "One bold word, straight to a face reaction — nothing else on screen",
+    b: "Three lines of small caption text explaining the setup before anything happens",
+    correct: 'a',
+    verdict: "Hook A wins.",
+    insight: "The first frame has to read in under a second. One idea, one visual — not a paragraph to parse mid-swipe.",
   },
-  fullfunnel: {
-    text: "Strategy, content calendar, community, paid, and the monthly report that ties it back to the brief — I've been the entire social function for teams that needed one person to own it, not a hand-off between five.",
-    stats: [{n:'4+', l:'Years experience'}, {n:'6', l:'Brands & agencies'}, {n:'5', l:'Industries'}],
+  {
+    a: "Starts immediately, mid-action — no intro",
+    b: "Opens with a 3-second logo animation before the content begins",
+    correct: 'a',
+    verdict: "Hook A wins.",
+    insight: "Every second before the value starts is a second people leave. Cut the intro, open on the moment.",
   },
-};
-const fitTabs = document.querySelectorAll('.fit-tab');
-const fitText = document.getElementById('fit-text');
-const fitStats = document.getElementById('fit-stats');
-function renderFit(key){
-  const d = FIT_DATA[key];
-  fitText.textContent = d.text;
-  fitStats.innerHTML = d.stats.map(s => `<div class="fit-stat"><span class="n mono">${s.n}</span><span class="l">${s.l}</span></div>`).join('');
-}
-fitTabs.forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    if (tab.getAttribute('aria-selected') === 'true') return;
-    fitTabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-    tab.setAttribute('aria-selected', 'true');
-    if (reduceMotion) { renderFit(tab.dataset.fit); return; }
-    fitText.classList.add('fading');
-    setTimeout(()=>{ renderFit(tab.dataset.fit); fitText.classList.remove('fading'); }, 200);
+];
+let duelRound = 0;
+let duelScore = 0;
+const duelProgress = document.getElementById('duel-progress');
+const duelOptionsEl = document.getElementById('duel-options');
+const duelOptionButtons = document.querySelectorAll('.duel-option');
+const duelTextA = document.getElementById('duel-text-a');
+const duelTextB = document.getElementById('duel-text-b');
+const duelReveal = document.getElementById('duel-reveal');
+const duelVerdict = document.getElementById('duel-verdict');
+const duelInsight = document.getElementById('duel-insight');
+const duelNext = document.getElementById('duel-next');
+const duelFinal = document.getElementById('duel-final');
+const duelScoreEl = document.getElementById('duel-score');
+
+function loadDuelRound(){
+  const r = DUEL_ROUNDS[duelRound];
+  duelProgress.textContent = `Round ${duelRound + 1} of ${DUEL_ROUNDS.length}`;
+  duelTextA.textContent = r.a;
+  duelTextB.textContent = r.b;
+  duelOptionButtons.forEach(btn=>{
+    btn.disabled = false;
+    btn.classList.remove('is-correct');
+    btn.querySelector('.duel-tag')?.remove();
   });
+  duelReveal.classList.remove('show');
+  duelOptionsEl.hidden = false;
+  duelFinal.hidden = true;
+}
+
+function pickDuelOption(choice){
+  const r = DUEL_ROUNDS[duelRound];
+  if (choice === r.correct) duelScore++;
+  duelOptionButtons.forEach(btn=>{
+    btn.disabled = true;
+    const isCorrect = btn.dataset.choice === r.correct;
+    const isPicked = btn.dataset.choice === choice;
+    if (isCorrect){
+      btn.classList.add('is-correct');
+      const tag = document.createElement('span');
+      tag.className = 'duel-tag correct';
+      tag.textContent = 'Stronger hook';
+      btn.appendChild(tag);
+    } else if (isPicked){
+      const tag = document.createElement('span');
+      tag.className = 'duel-tag picked';
+      tag.textContent = 'Your pick';
+      btn.appendChild(tag);
+    }
+  });
+  duelVerdict.textContent = r.verdict;
+  duelInsight.textContent = r.insight;
+  duelReveal.classList.add('show');
+}
+
+duelOptionButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=> pickDuelOption(btn.dataset.choice));
 });
-renderFit('content');
+duelNext.addEventListener('click', ()=>{
+  duelRound++;
+  if (duelRound >= DUEL_ROUNDS.length){
+    duelOptionsEl.hidden = true;
+    duelReveal.classList.remove('show');
+    duelFinal.hidden = false;
+    duelScoreEl.textContent = `${duelScore} / ${DUEL_ROUNDS.length} matched the pattern`;
+  } else {
+    loadDuelRound();
+  }
+});
+document.getElementById('duel-replay').addEventListener('click', ()=>{
+  duelRound = 0;
+  duelScore = 0;
+  loadDuelRound();
+});
+loadDuelRound();
+
+/* ---- why hire me checklist (interactive) ---- */
+const fitChecks = document.querySelectorAll('[data-fit-check]');
+const fitVerdict = document.getElementById('fit-verdict');
+const fitVerdictText = document.getElementById('fit-verdict-text');
+function updateFitVerdict(){
+  const checked = document.querySelectorAll('[data-fit-check]:checked').length;
+  if (checked >= 2){
+    fitVerdictText.textContent = `${checked} out of ${fitChecks.length} — and I can back up every one. Let's talk about the role.`;
+    fitVerdict.classList.add('show');
+  } else {
+    fitVerdict.classList.remove('show');
+  }
+}
+fitChecks.forEach(cb => cb.addEventListener('change', updateFitVerdict));
 
 document.getElementById('contact-form').addEventListener('submit', e=>{
   e.preventDefault();
