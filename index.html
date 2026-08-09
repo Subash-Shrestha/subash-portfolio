@@ -329,6 +329,26 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
 }
 .footer-name span:first-child{color:var(--text);}
 .footer-name span:last-child{color:var(--text-faint);}
+.footer-chip{
+  display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:12px 16px; transform:rotate(-3deg); box-shadow:0 10px 26px rgba(0,0,0,0.28);
+}
+.footer-chip .n{font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--coral); line-height:1;}
+.footer-chip .n small{font-size:13px; font-weight:600;}
+.footer-chip .l{font-family:var(--font-mono); font-size:9.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint);}
+@media(max-width:680px){.footer-chip{display:none;}}
+
+.statement{
+  font-family:var(--font-display); font-weight:700; letter-spacing:-0.01em;
+  font-size:clamp(26px, 4.4vw, 48px); line-height:1.25; max-width:20ch; text-wrap:balance;
+  color:var(--text-faint);
+}
+.statement .accent{
+  display:inline-block;
+  background:linear-gradient(90deg,var(--coral),var(--pink));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
 .footer-meta-row{display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding-top:20px; border-top:1px solid var(--line); font-size:11px; color:var(--text-faint);}
 .footer-meta-row a{color:var(--text-soft); border-bottom:1px solid var(--line);}
 .footer-meta-row a:hover{color:var(--coral); border-color:var(--coral);}
@@ -528,6 +548,11 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
       <div class="exp-row"><div class="exp-date mono">APR 2020 – JUL 2022</div><div><h4>Digital Marketing Strategist</h4><div class="exp-org">Gyapu Marketplace</div><p><mark class="hl">Promoted within 16 months</mark> of starting; multi-channel campaigns across social, email &amp; SMS.</p></div></div>
     </div>
 
+    <!-- STATEMENT -->
+    <div class="cell c-full glow reveal">
+      <p class="statement">Growth doesn't happen by accident — <span class="accent">it's designed.</span></p>
+    </div>
+
     <!-- BLOG -->
     <div class="cell c-full glow reveal" id="blog">
       <div class="tag-dot"><i style="background:var(--sky);"></i>Blog</div>
@@ -640,7 +665,11 @@ footer{padding:70px 0 30px; border-top:1px solid var(--line);}
 
 <footer>
   <div class="wrap">
-    <div class="footer-name"><span>Subash</span><span>Shrestha</span></div>
+    <div class="footer-name">
+      <span>Subash</span>
+      <div class="footer-chip"><div class="n">500<small>+</small></div><div class="l">Reels shipped</div></div>
+      <span>Shrestha</span>
+    </div>
     <div class="footer-meta-row">
       <div>© 2026 Subash Jayana Shrestha · Parramatta, NSW</div>
       <div class="footer-credits">Built with <b>Claude Code</b> · Hosted on <b>GitHub Pages</b></div>
