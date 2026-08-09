@@ -227,6 +227,44 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
   .bar-track i, .skill-track i{transition:none;}
   .c-status i{animation:none;}
 }
+
+/* ---------------- ADMIN / AUTH ---------------- */
+#admin-fab{
+  position:fixed; bottom:22px; right:22px; z-index:80;
+  background:var(--card-hi); border:1px solid var(--line); color:var(--text);
+  padding:12px 16px; border-radius:30px; font-size:12.5px; font-weight:600; font-family:var(--font-body);
+  display:flex; align-items:center; gap:8px; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,0.35);
+}
+#admin-fab:hover{border-color:var(--coral);}
+#admin-fab i{width:7px; height:7px; border-radius:50%; background:var(--text-faint);}
+#admin-fab.logged-in i{background:var(--lime);}
+
+.modal-overlay{position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:90; display:none; align-items:center; justify-content:center; padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:30px; width:100%; max-width:380px;}
+.modal-box h3{font-size:18px; margin-bottom:6px; font-family:var(--font-display);}
+.modal-box .sub{font-size:12.5px; color:var(--text-soft); margin-bottom:20px; line-height:1.55;}
+.modal-box code{background:var(--bg); border:1px solid var(--line); border-radius:4px; padding:1px 5px; font-family:var(--font-mono); font-size:11.5px;}
+.modal-actions{display:flex; gap:10px; margin-top:18px;}
+.modal-actions button{flex:1; padding:11px; border-radius:8px; border:none; font-weight:600; font-size:13px; cursor:pointer; font-family:var(--font-body);}
+.btn-primary{background:var(--coral); color:#fff;}
+.btn-secondary{background:transparent; border:1px solid var(--line) !important; color:var(--text);}
+#auth-error, #otp-error{color:#FF8A6B; font-size:12px; margin-top:10px; display:none;}
+#auth-info{color:var(--sky); font-size:12px; margin-top:10px; display:none;}
+
+#admin-panel{position:fixed; top:0; right:0; bottom:0; width:420px; max-width:92vw; background:var(--card); border-left:1px solid var(--line); z-index:95; transform:translateX(100%); transition:transform .3s ease; overflow-y:auto; padding:26px;}
+#admin-panel.open{transform:translateX(0);}
+#admin-panel h3{font-size:16px; margin-bottom:4px; font-family:var(--font-display);}
+.admin-close{position:absolute; top:22px; right:22px; background:none; border:none; color:var(--text-faint); font-size:20px; cursor:pointer; line-height:1;}
+.admin-section{margin-top:26px; padding-top:20px; border-top:1px solid var(--line);}
+.admin-section:first-of-type{border-top:none; margin-top:20px; padding-top:0;}
+.admin-section-title{font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--sky); margin-bottom:14px; font-weight:600;}
+.btn-save{width:100%; padding:12px; border-radius:8px; border:none; background:var(--lime); color:#101012; font-weight:700; font-size:13.5px; cursor:pointer; margin-top:22px; font-family:var(--font-body);}
+.btn-signout{width:100%; padding:11px; border-radius:8px; margin-top:10px; cursor:pointer; font-family:var(--font-body);}
+.save-note{font-size:11px; color:var(--text-faint); text-align:center; margin-top:8px; min-height:14px;}
+.security-note{background:rgba(107,184,255,0.08); border:1px solid rgba(107,184,255,0.25); border-radius:10px; padding:12px; font-size:11.5px; color:var(--text-soft); line-height:1.6; margin-top:20px;}
+
+@media(max-width:680px){#admin-fab span{display:none;} #admin-fab{padding:12px;}}
 </style>
 </head>
 <body>
@@ -248,7 +286,7 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
 
 <div class="wrap">
   <section class="hero">
-    <p class="hero-eyebrow mono">DIGITAL MARKETING <span>&amp;</span> SOCIAL MEDIA STRATEGIST — PARRAMATTA, SYDNEY</p>
+    <p class="hero-eyebrow mono" data-cms="hero_eyebrow">DIGITAL MARKETING <span>&amp;</span> SOCIAL MEDIA STRATEGIST — PARRAMATTA, SYDNEY</p>
     <h1>Scroll-stopping <span class="grad">campaigns.</span> Real pipelines.</h1>
   </section>
 
@@ -260,26 +298,26 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
 
     <div class="cell c-hero-text glow">
       <div class="tag-dot"><i style="background:var(--coral);"></i>Overview</div>
-      <p>I plan, shoot and run paid social campaigns end-to-end — from the first hook in a Reel to the cost-per-lead in the ads dashboard. Four years across e-commerce, broadcast, education and retail, now based in Sydney.</p>
+      <p data-cms="overview">I plan, shoot and run paid social campaigns end-to-end — from the first hook in a Reel to the cost-per-lead in the ads dashboard. Four years across e-commerce, broadcast, education and retail, now based in Sydney.</p>
       <div class="cta-row">
         <a href="#work" class="btn btn-fill">View Campaigns</a>
         <a href="#message" class="btn btn-line">Hire Me</a>
       </div>
     </div>
 
-    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--coral);">500+</div><div class="lbl">Reels scripted, filmed &amp; edited</div></div>
-    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--lime);">1,000+</div><div class="lbl">Leads generated <span style="color:var(--text-faint);">(selected campaigns below)</span></div></div>
-    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--sky);">1.8M+</div><div class="lbl">People reached <span style="color:var(--text-faint);">(selected campaigns below)</span></div></div>
-    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--violet);">5</div><div class="lbl">Industries — retail, broadcast, edu, e-comm, freelance</div></div>
+    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--coral);" data-cms="stat1_num">500+</div><div class="lbl" data-cms="stat1_lbl">Reels scripted, filmed &amp; edited</div></div>
+    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--lime);" data-cms="stat2_num">1,000+</div><div class="lbl" data-cms="stat2_lbl">Leads generated <span style="color:var(--text-faint);">(selected campaigns below)</span></div></div>
+    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--sky);" data-cms="stat3_num">1.8M+</div><div class="lbl" data-cms="stat3_lbl">People reached <span style="color:var(--text-faint);">(selected campaigns below)</span></div></div>
+    <div class="cell c-stat glow reveal"><div class="num" style="color:var(--violet);" data-cms="stat4_num">5</div><div class="lbl" data-cms="stat4_lbl">Industries — retail, broadcast, edu, e-comm, freelance</div></div>
 
     <!-- ABOUT -->
     <div class="cell c-full glow reveal" id="about">
       <div class="tag-dot"><i style="background:var(--violet);"></i>About &amp; Value</div>
       <div class="c-about about-grid">
         <div>
-          <p>My interest in digital marketing started with a simple question: <i>why do some campaigns convert and others don't?</i> That question turned into a career built around data and analytics — using audience insights, targeting and creative testing to work out not just how to get a brand in front of people, but in front of the <mark class="hl">right</mark> people, and to turn that attention into leads, sales and repeat customers.</p>
-          <p>Four years in, that's still what pulls me in: watching a dashboard tell you a story about a campaign, and using that story to shape the next hook, the next audience segment, the next ad. I've managed social accounts end-to-end, run Meta Ads lead-gen and awareness flights, filmed and edited <mark class="hl">500+ Reels</mark>, and reported results back in language non-marketers can act on — always with the same goal: make the data work harder for the brand it's attached to.</p>
-          <p>New to the Sydney market, not new to the work — and still hungry to learn how it's done here.</p>
+          <p data-cms="about_p1">My interest in digital marketing started with a simple question: <i>why do some campaigns convert and others don't?</i> That question turned into a career built around data and analytics — using audience insights, targeting and creative testing to work out not just how to get a brand in front of people, but in front of the <mark class="hl">right</mark> people, and to turn that attention into leads, sales and repeat customers.</p>
+          <p data-cms="about_p2">Four years in, that's still what pulls me in: watching a dashboard tell you a story about a campaign, and using that story to shape the next hook, the next audience segment, the next ad. I've managed social accounts end-to-end, run Meta Ads lead-gen and awareness flights, filmed and edited <mark class="hl">500+ Reels</mark>, and reported results back in language non-marketers can act on — always with the same goal: make the data work harder for the brand it's attached to.</p>
+          <p data-cms="about_p3">New to the Sydney market, not new to the work — and still hungry to learn how it's done here.</p>
           <div class="pill-row">
             <span class="pill">Meta Ads Manager</span><span class="pill">CapCut</span><span class="pill">Canva &amp; Photoshop</span><span class="pill">Content Calendars</span><span class="pill">Email &amp; SMS</span><span class="pill">UGC / Influencer</span>
           </div>
@@ -433,8 +471,8 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
 
     <!-- CONTACT -->
     <div class="cell c-full contact-cell reveal">
-      <h2>Let's talk about the role.</h2>
-      <p>Looking for someone who can create the content and run the numbers behind it? Open to junior–mid digital marketing and social media roles across Sydney.</p>
+      <h2 data-cms="contact_headline">Let's talk about the role.</h2>
+      <p data-cms="contact_sub">Looking for someone who can create the content and run the numbers behind it? Open to junior–mid digital marketing and social media roles across Sydney.</p>
       <div class="contact-links">
         <a href="mailto:contact.subashwork@gmail.com">contact.subashwork@gmail.com</a>
         <a href="tel:0402534278">0402 534 278</a>
@@ -446,6 +484,79 @@ footer{text-align:center; padding:30px 0; font-size:11px; color:var(--text-faint
 
 <footer>© 2026 Subash Jayana Shrestha · Parramatta, NSW</footer>
 
+<!-- ADMIN SYSTEM (Supabase-backed — see supabase/README.md to activate) -->
+<button id="admin-fab" aria-label="Site admin"><i></i> <span id="admin-fab-label">Admin</span></button>
+
+<div class="modal-overlay" id="config-overlay">
+  <div class="modal-box">
+    <h3>Backend not connected yet</h3>
+    <p class="sub">This admin panel talks to a Supabase project for real authentication and content storage, but no project is wired up in this file yet. Set <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script, and follow <code>supabase/README.md</code> in this repo to create the project, the content table, and your admin login.</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="config-close">Got it</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="login-overlay">
+  <div class="modal-box" id="login-step-password">
+    <h3>Admin sign in</h3>
+    <p class="sub">Step 1 of 2 — sign in with your email and password.</p>
+    <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" autocomplete="username"></div>
+    <div class="field"><label for="login-pass">Password</label><input type="password" id="login-pass" autocomplete="current-password"></div>
+    <div id="auth-error"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="login-cancel">Cancel</button>
+      <button class="btn-primary" id="login-submit">Continue →</button>
+    </div>
+  </div>
+
+  <div class="modal-box" id="login-step-otp" style="display:none;">
+    <h3>Verify it's you</h3>
+    <p class="sub" id="otp-sub">Step 2 of 2 — enter the 6-digit code just sent to your email.</p>
+    <div class="field"><label for="login-otp">Verification code</label><input type="text" id="login-otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></div>
+    <div id="otp-error"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="otp-cancel">Cancel</button>
+      <button class="btn-primary" id="otp-submit">Verify &amp; sign in</button>
+    </div>
+  </div>
+</div>
+
+<div id="admin-panel">
+  <button class="admin-close" id="admin-close" aria-label="Close admin panel">&times;</button>
+  <h3>Site admin</h3>
+  <p class="sub" style="font-size:12px; color:var(--text-faint);">Signed in as <span id="admin-user-email"></span>. Changes save to Supabase and load for every visitor.</p>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Headline &amp; overview</div>
+    <div id="cms-fields-hero"></div>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Stats</div>
+    <div id="cms-fields-stats"></div>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">About</div>
+    <div id="cms-fields-about"></div>
+  </div>
+
+  <div class="admin-section">
+    <div class="admin-section-title">Contact panel</div>
+    <div id="cms-fields-contact"></div>
+  </div>
+
+  <div class="security-note">
+    <b>How this is secured:</b> sign-in runs entirely through Supabase Auth — your password is checked on Supabase's servers, never stored in this page's code. Step 2 sends a one-time code to your email before this panel unlocks. Visitors to the site only ever receive the published content, never your credentials.
+  </div>
+
+  <button class="btn-save" id="save-content">Save changes</button>
+  <div class="save-note" id="save-status"></div>
+  <button class="btn-secondary btn-signout" id="logout-btn">Sign out</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 document.querySelectorAll('.glow').forEach(el=>{
   el.addEventListener('mousemove', e=>{
@@ -486,6 +597,189 @@ document.getElementById('contact-form').addEventListener('submit', e=>{
   const subject = encodeURIComponent(`Portfolio contact — ${reason} — ${name}`);
   const body = encodeURIComponent(`${message}\n\n—\nFrom: ${name}\nReply to: ${email}`);
   window.location.href = `mailto:contact.subashwork@gmail.com?subject=${subject}&body=${body}`;
+});
+
+/* ===================== ADMIN / CMS (Supabase) =====================
+   Setup instructions: supabase/README.md in this repo.
+   Nothing below this point can authenticate anyone or store content
+   until SUPABASE_URL and SUPABASE_ANON_KEY are replaced with real
+   values from your own Supabase project (Project Settings → API).
+   The anon key is a PUBLIC key by Supabase's own design — it is safe
+   to ship in client code. Real security comes from Supabase's Row
+   Level Security policies (see the SQL in supabase/schema.sql), not
+   from hiding this key. */
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+// Which channel step 2 verifies through: 'email' works out of the box.
+// Switch to 'phone' only after configuring an SMS provider (e.g. Twilio)
+// under Authentication → Phone in your Supabase dashboard.
+const OTP_CHANNEL = 'email';
+
+const isConfigured = !SUPABASE_URL.startsWith('YOUR_') && !SUPABASE_ANON_KEY.startsWith('YOUR_');
+const sb = isConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const CMS_FIELDS = {
+  hero: [
+    { key: 'hero_eyebrow', label: 'Eyebrow line' },
+    { key: 'overview', label: 'Overview paragraph', multiline: true },
+  ],
+  stats: [
+    { key: 'stat1_num', label: 'Stat 1 — number' }, { key: 'stat1_lbl', label: 'Stat 1 — label' },
+    { key: 'stat2_num', label: 'Stat 2 — number' }, { key: 'stat2_lbl', label: 'Stat 2 — label' },
+    { key: 'stat3_num', label: 'Stat 3 — number' }, { key: 'stat3_lbl', label: 'Stat 3 — label' },
+    { key: 'stat4_num', label: 'Stat 4 — number' }, { key: 'stat4_lbl', label: 'Stat 4 — label' },
+  ],
+  about: [
+    { key: 'about_p1', label: 'Paragraph 1', multiline: true },
+    { key: 'about_p2', label: 'Paragraph 2', multiline: true },
+    { key: 'about_p3', label: 'Paragraph 3', multiline: true },
+  ],
+  contact: [
+    { key: 'contact_headline', label: 'Headline' },
+    { key: 'contact_sub', label: 'Subtext', multiline: true },
+  ],
+};
+
+let loggedInEmail = null;
+let pendingEmail = null;
+
+async function loadPublishedContent(){
+  if (!isConfigured) return;
+  const { data, error } = await sb.from('site_content').select('content').eq('id', 1).single();
+  if (error || !data || !data.content) return;
+  Object.entries(data.content).forEach(([key, value]) => {
+    if (!value) return;
+    const el = document.querySelector(`[data-cms="${key}"]`);
+    if (el) el.textContent = value;
+  });
+}
+loadPublishedContent();
+
+function showModal(id){ document.getElementById(id).classList.add('open'); }
+function hideModal(id){ document.getElementById(id).classList.remove('open'); }
+function resetLoginModal(){
+  document.getElementById('login-step-password').style.display = '';
+  document.getElementById('login-step-otp').style.display = 'none';
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-otp').value = '';
+  document.getElementById('auth-error').style.display = 'none';
+  document.getElementById('otp-error').style.display = 'none';
+}
+
+document.getElementById('admin-fab').addEventListener('click', async () => {
+  if (!isConfigured) { showModal('config-overlay'); return; }
+  const { data: { session } } = await sb.auth.getSession();
+  if (session && loggedInEmail) { openAdminPanel(); return; }
+  resetLoginModal();
+  showModal('login-overlay');
+});
+document.getElementById('config-close').addEventListener('click', () => hideModal('config-overlay'));
+document.getElementById('login-cancel').addEventListener('click', () => hideModal('login-overlay'));
+document.getElementById('otp-cancel').addEventListener('click', () => hideModal('login-overlay'));
+
+document.getElementById('login-submit').addEventListener('click', async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+  if (!email || !password) return;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'Incorrect email or password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  // Password confirmed — now require a one-time code before granting
+  // access. This is the second factor: something you know (password)
+  // plus something you have (access to this inbox/phone).
+  pendingEmail = email;
+  const otpPayload = OTP_CHANNEL === 'phone' ? { phone: email } : { email };
+  const { error: otpError } = await sb.auth.signInWithOtp(otpPayload);
+  if (otpError) {
+    errEl.textContent = 'Password correct, but the verification code could not be sent. Check your Supabase Auth settings.';
+    errEl.style.display = 'block';
+    return;
+  }
+  document.getElementById('otp-sub').textContent = `Step 2 of 2 — enter the 6-digit code just sent to your ${OTP_CHANNEL === 'phone' ? 'phone' : 'email'}.`;
+  document.getElementById('login-step-password').style.display = 'none';
+  document.getElementById('login-step-otp').style.display = '';
+});
+
+document.getElementById('otp-submit').addEventListener('click', async () => {
+  const token = document.getElementById('login-otp').value.trim();
+  const errEl = document.getElementById('otp-error');
+  errEl.style.display = 'none';
+  if (!token || !pendingEmail) return;
+  const verifyPayload = OTP_CHANNEL === 'phone'
+    ? { phone: pendingEmail, token, type: 'sms' }
+    : { email: pendingEmail, token, type: 'email' };
+  const { data, error } = await sb.auth.verifyOtp(verifyPayload);
+  if (error || !data.session) {
+    errEl.textContent = 'That code is incorrect or expired.';
+    errEl.style.display = 'block';
+    return;
+  }
+  loggedInEmail = pendingEmail;
+  hideModal('login-overlay');
+  openAdminPanel();
+});
+
+function buildCmsSection(containerId, fields){
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  fields.forEach(f => {
+    const current = document.querySelector(`[data-cms="${f.key}"]`);
+    const value = current ? current.textContent.trim() : '';
+    const wrap = document.createElement('div');
+    wrap.className = 'field';
+    wrap.innerHTML = f.multiline
+      ? `<label>${f.label}</label><textarea rows="3" data-cms-input="${f.key}"></textarea>`
+      : `<label>${f.label}</label><input type="text" data-cms-input="${f.key}">`;
+    el.appendChild(wrap);
+    el.querySelector(`[data-cms-input="${f.key}"]`).value = value;
+  });
+}
+
+function openAdminPanel(){
+  document.getElementById('admin-user-email').textContent = loggedInEmail || '';
+  document.getElementById('admin-fab').classList.add('logged-in');
+  document.getElementById('admin-fab-label').textContent = 'Edit site';
+  buildCmsSection('cms-fields-hero', CMS_FIELDS.hero);
+  buildCmsSection('cms-fields-stats', CMS_FIELDS.stats);
+  buildCmsSection('cms-fields-about', CMS_FIELDS.about);
+  buildCmsSection('cms-fields-contact', CMS_FIELDS.contact);
+  document.getElementById('admin-panel').classList.add('open');
+}
+document.getElementById('admin-close').addEventListener('click', () => {
+  document.getElementById('admin-panel').classList.remove('open');
+});
+
+document.getElementById('save-content').addEventListener('click', async () => {
+  const statusEl = document.getElementById('save-status');
+  const content = {};
+  document.querySelectorAll('[data-cms-input]').forEach(input => {
+    content[input.dataset.cmsInput] = input.value;
+  });
+  const { error } = await sb.from('site_content').update({ content }).eq('id', 1);
+  if (error) {
+    statusEl.textContent = "Couldn't save — check the RLS policy allows updates for authenticated users.";
+  } else {
+    statusEl.textContent = 'Saved ✓ — live for every visitor now.';
+    Object.entries(content).forEach(([key, value]) => {
+      const el = document.querySelector(`[data-cms="${key}"]`);
+      if (el) el.textContent = value;
+    });
+  }
+  setTimeout(() => statusEl.textContent = '', 3000);
+});
+
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  loggedInEmail = null;
+  document.getElementById('admin-panel').classList.remove('open');
+  document.getElementById('admin-fab').classList.remove('logged-in');
+  document.getElementById('admin-fab-label').textContent = 'Admin';
 });
 </script>
 </body>
