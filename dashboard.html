@@ -29,7 +29,7 @@
   --nav-bg:rgba(14,15,18,0.7);
   --danger:#FF8A6B;
   --on-accent:#101012;
-  --radius:22px;
+  --radius:16px;
   --font-display: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-body: system-ui, "Segoe UI", -apple-system, Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
@@ -57,18 +57,18 @@ body{margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-f
 h1,h2,h3{font-family:var(--font-display); font-weight:700; letter-spacing:-0.01em; margin:0;}
 
 nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:var(--nav-bg); border-bottom:1px solid var(--line);}
-.nav-inner{max-width:1120px; margin:0 auto; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
+.nav-inner{max-width:1280px; margin:0 auto; padding:14px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
 .brand-link{display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; font-family:var(--font-display); color:var(--text); text-decoration:none;}
 .brand-link svg{width:14px; height:14px; stroke:var(--text-faint);}
 .nav-right{display:flex; align-items:center; gap:12px;}
 .theme-toggle{
-  position:relative; width:36px; height:36px; border-radius:50%;
+  position:relative; width:34px; height:34px; border-radius:50%;
   background:var(--card-hi); border:1px solid var(--line); cursor:pointer;
   flex-shrink:0; display:flex; align-items:center; justify-content:center;
   transition:border-color .2s ease, background .4s ease, transform .3s ease;
 }
 .theme-toggle:hover{border-color:var(--coral); transform:translateY(-1px);}
-.theme-toggle svg{position:absolute; width:17px; height:17px; stroke:var(--text); fill:none; stroke-width:1.8; transition:opacity .35s ease, transform .5s cubic-bezier(.2,.8,.2,1);}
+.theme-toggle svg{position:absolute; width:16px; height:16px; stroke:var(--text); fill:none; stroke-width:1.8; transition:opacity .35s ease, transform .5s cubic-bezier(.2,.8,.2,1);}
 .theme-toggle .icon-sun{opacity:0; transform:rotate(-90deg) scale(.4);}
 .theme-toggle .icon-moon{opacity:1; transform:rotate(0) scale(1);}
 :root[data-theme="light"] .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
@@ -77,37 +77,67 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:v
   :root:not([data-theme="dark"]) .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
   :root:not([data-theme="dark"]) .theme-toggle .icon-moon{opacity:0; transform:rotate(90deg) scale(.4);}
 }
-.btn-signout{padding:9px 16px; border-radius:20px; background:transparent; border:1px solid var(--line); color:var(--text-soft); cursor:pointer; font-family:var(--font-body); font-size:12.5px; font-weight:600;}
+.btn-signout{padding:8px 14px; border-radius:20px; background:transparent; border:1px solid var(--line); color:var(--text-soft); cursor:pointer; font-family:var(--font-body); font-size:12.5px; font-weight:600;}
 .btn-signout:hover{border-color:var(--coral); color:var(--text);}
 
-.wrap{max-width:900px; margin:0 auto; padding:36px 24px 80px;}
-.dash-head{margin-bottom:30px;}
-.dash-head h1{font-size:24px; margin-bottom:6px;}
-.dash-head .sub{font-size:13px; color:var(--text-faint);}
-.dash-head .sub b{color:var(--text-soft);}
+.gate{display:flex; align-items:center; justify-content:center; min-height:60vh; padding:20px; text-align:center; color:var(--text-faint); font-size:13px;}
 
-.dash-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-@media(max-width:720px){.dash-grid{grid-template-columns:1fr;}}
-.dash-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
-.dash-card-title{font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--sky); margin-bottom:16px; font-weight:600;}
+.shell{display:none; max-width:1280px; margin:0 auto; padding:24px; gap:24px;}
+.shell.open{display:flex;}
+.sidebar{width:220px; flex-shrink:0;}
+.sidebar-title{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); margin:0 0 10px 4px;}
+.sidebar nav{position:sticky; top:70px; background:none; border:none; backdrop-filter:none;}
+.side-link{display:block; padding:9px 12px; border-radius:8px; color:var(--text-soft); text-decoration:none; font-size:13px; margin-bottom:2px; transition:background .15s ease, color .15s ease;}
+.side-link:hover{background:var(--card-hi); color:var(--text);}
+.side-link.active{background:var(--card); color:var(--text); font-weight:600; border:1px solid var(--line);}
+
+.main{flex:1; min-width:0; padding-bottom:100px;}
+.panel{display:none;}
+.panel.active{display:block;}
+.panel-head{margin-bottom:20px;}
+.panel-head h1{font-size:20px;}
+.panel-head .sub{font-size:12.5px; color:var(--text-faint); margin-top:4px; line-height:1.6;}
 
 .field{margin-bottom:14px;}
 .field:last-child{margin-bottom:0;}
 .field label{font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-faint); display:block; margin-bottom:6px;}
-.field input, .field textarea{
-  width:100%; background:var(--bg); border:1px solid var(--line); border-radius:8px;
+.field input, .field textarea, .field select{
+  width:100%; background:var(--card); border:1px solid var(--line); border-radius:8px;
   color:var(--text); padding:10px 12px; font-size:13.5px; font-family:var(--font-body); outline:none;
 }
 .field textarea{resize:vertical; line-height:1.5;}
-.field input:focus, .field textarea:focus{border-color:var(--coral);}
+.field input:focus, .field textarea:focus, .field select:focus{border-color:var(--coral);}
 
-.save-bar{position:sticky; bottom:0; margin-top:24px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
-.btn-save{padding:12px 22px; border-radius:8px; border:none; background:var(--lime); color:var(--on-accent); font-weight:700; font-size:13.5px; cursor:pointer; font-family:var(--font-body);}
+.simple-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+
+.list-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-bottom:14px;}
+.list-card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:10px;}
+.list-card-head .idx{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); font-weight:600;}
+.list-card-actions{display:flex; gap:6px;}
+.icon-btn{width:28px; height:28px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--text-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:13px; line-height:1;}
+.icon-btn:hover{border-color:var(--coral); color:var(--text);}
+.icon-btn.danger:hover{border-color:var(--danger); color:var(--danger);}
+.add-item-btn{width:100%; padding:12px; border-radius:10px; border:1px dashed var(--line); background:transparent; color:var(--text-soft); cursor:pointer; font-family:var(--font-body); font-size:13px; font-weight:600;}
+.add-item-btn:hover{border-color:var(--coral); color:var(--text);}
+
+.seo-note{background:rgba(107,184,255,0.08); border:1px solid rgba(107,184,255,0.25); border-radius:10px; padding:12px 14px; font-size:12px; color:var(--text-soft); line-height:1.6; margin-bottom:18px;}
+.overview-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px;}
+@media(max-width:520px){.overview-grid{grid-template-columns:1fr;}}
+.overview-stat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px;}
+.overview-stat .n{font-size:22px; font-weight:700; font-family:var(--font-display);}
+.overview-stat .l{font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.04em; margin-top:2px;}
+
+.save-bar{position:fixed; left:0; right:0; bottom:0; z-index:40; background:var(--card); border-top:1px solid var(--line); padding:14px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:center;}
+.btn-save{padding:12px 24px; border-radius:8px; border:none; background:var(--lime); color:var(--on-accent); font-weight:700; font-size:13.5px; cursor:pointer; font-family:var(--font-body);}
 .save-note{font-size:12px; color:var(--text-faint);}
 
-.security-note{background:rgba(107,184,255,0.08); border:1px solid rgba(107,184,255,0.25); border-radius:10px; padding:14px 16px; font-size:12px; color:var(--text-soft); line-height:1.6; margin-top:24px;}
-
-.gate{display:flex; align-items:center; justify-content:center; min-height:60vh; padding:20px; text-align:center; color:var(--text-faint); font-size:13px;}
+@media(max-width:820px){
+  .shell{flex-direction:column; padding:16px;}
+  .sidebar{width:100%;}
+  .sidebar nav{position:static; display:flex; overflow-x:auto; gap:6px; padding-bottom:6px;}
+  .side-link{white-space:nowrap; margin-bottom:0;}
+  .main{padding-bottom:90px;}
+}
 </style>
 </head>
 <body>
@@ -130,39 +160,17 @@ nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:v
 
 <div class="gate" id="gate">Checking session…</div>
 
-<div class="wrap" id="dashboard" style="display:none;">
-  <div class="dash-head">
-    <h1>Site admin</h1>
-    <p class="sub">Signed in as <b id="admin-user-email"></b>. Changes save to Supabase and are live for every visitor immediately — no redeploy needed.</p>
+<div class="shell" id="shell">
+  <div class="sidebar">
+    <p class="sidebar-title">Manage</p>
+    <nav id="side-nav"></nav>
   </div>
+  <div class="main" id="main"></div>
+</div>
 
-  <div class="dash-grid">
-    <div class="dash-card">
-      <div class="dash-card-title">Headline &amp; overview</div>
-      <div id="cms-fields-hero"></div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-title">Stats</div>
-      <div id="cms-fields-stats"></div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-title">About</div>
-      <div id="cms-fields-about"></div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-title">Contact panel</div>
-      <div id="cms-fields-contact"></div>
-    </div>
-  </div>
-
-  <div class="save-bar">
-    <button class="btn-save" id="save-content">Save changes</button>
-    <span class="save-note" id="save-status"></span>
-  </div>
-
-  <div class="security-note">
-    <b>How this is secured:</b> sign-in runs entirely through Supabase Auth — your password is checked on Supabase's servers, never stored in this page's code. This dashboard is only reachable after passing both sign-in steps (password + one-time code) on the login page. Visitors to the live site only ever receive the published content, never your credentials.
-  </div>
+<div class="save-bar" id="save-bar" style="display:none;">
+  <button class="btn-save" id="save-content">Save changes</button>
+  <span class="save-note" id="save-status"></span>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -194,51 +202,363 @@ const SUPABASE_ANON_KEY = 'sb_publishable_v5DgGrkZN5KHOi-6RyopgA_RmTfB1qG';
 const isConfigured = !SUPABASE_URL.startsWith('YOUR_') && !SUPABASE_ANON_KEY.startsWith('YOUR_');
 const sb = isConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-const CMS_FIELDS = {
-  hero: [
-    { key: 'hero_eyebrow', label: 'Eyebrow line' },
-    { key: 'overview', label: 'Overview paragraph', multiline: true },
+/* ===================== Content model =====================
+   Every default here mirrors index.html's DEFAULT_CONTENT (plus
+   blog_posts/articles, which index.html doesn't need defaults for
+   since it patches its own already-correct hardcoded cards). Keep
+   both files' defaults in sync if the live copy ever changes by hand. */
+const DEFAULT_CONTENT = {
+  hero_eyebrow: 'DIGITAL MARKETING & SOCIAL MEDIA STRATEGIST — PARRAMATTA, SYDNEY',
+  overview: "I plan, shoot and run paid social campaigns end-to-end — from the first hook in a Reel to the cost-per-lead in the ads dashboard. Four years across e-commerce, broadcast, education and retail, now based in Sydney.",
+  stat1_num:'500+', stat1_lbl:'Reels scripted, filmed & edited',
+  stat2_num:'1,000+', stat2_lbl:'Leads generated (selected campaigns below)',
+  stat3_num:'1.8M+', stat3_lbl:'People reached (selected campaigns below)',
+  stat4_num:'5', stat4_lbl:'Industries — retail, broadcast, edu, e-comm, freelance',
+  about_p1:'', about_p2:'', about_p3:'',
+  contact_headline:"Let's talk about the role.",
+  contact_sub:"Looking for someone who can create the content and run the numbers behind it? Open to junior–mid digital marketing and social media roles across Sydney.",
+  contact_email:'contact.subashwork@gmail.com',
+  contact_phone:'0402 534 278',
+  contact_whatsapp:'https://wa.me/message/OMEA6N67LA77I1',
+  contact_address:'Parramatta, NSW 2150',
+  linkedin_url:'https://linkedin.com/in/subash-jayana-shrestha-a38202207',
+  instagram_handle:'subash_sht',
+  facebook_url:'https://www.facebook.com/share/1KnVrz8Ydg/?mibextid=wwXIfr',
+  journey_statement:"Growth doesn't happen by accident — it's designed.",
+  journey_statement_sub:'Every Reel opens with a hook I chose on purpose. Play a round — pick the one you think keeps someone watching, then see the pattern behind the call.',
+  seo_title:'Subash Jayana Shrestha — Digital Marketing Strategist',
+  seo_description:'Subash Jayana Shrestha — Sydney-based Social Media Strategist, Content Strategist and Digital Marketing Specialist. Meta Ads, short-form video, and campaign performance.',
+  campaigns: [
+    {category:'lead', title:'Campaign 01 — Lead Generation', metric1_value:'793', metric1_label:'Leads', metric2_value:'$0.24', metric2_label:'Cost/Lead'},
+    {category:'aware', title:'Campaign 02 — Awareness', metric1_value:'722K', metric1_label:'Reached', metric2_value:'1.6M', metric2_label:'Impressions'},
+    {category:'aware', title:'Campaign 03 — Awareness Push', metric1_value:'923K', metric1_label:'Reached', metric2_value:'1.8M', metric2_label:'Impressions'},
+    {category:'lead', title:'Campaign 04 — Lead Gen', metric1_value:'107', metric1_label:'Leads', metric2_value:'$0.42', metric2_label:'Cost/Lead'},
+    {category:'lead', title:'Campaign 05 — Lead Generation', metric1_value:'115', metric1_label:'Leads', metric2_value:'$0.27', metric2_label:'Cost/Lead'},
+    {category:'aware', title:'Campaign 06 — Cultural Outreach', metric1_value:'219K', metric1_label:'Reached', metric2_value:'281K', metric2_label:'Impressions'},
   ],
-  stats: [
-    { key: 'stat1_num', label: 'Stat 1 — number' }, { key: 'stat1_lbl', label: 'Stat 1 — label' },
-    { key: 'stat2_num', label: 'Stat 2 — number' }, { key: 'stat2_lbl', label: 'Stat 2 — label' },
-    { key: 'stat3_num', label: 'Stat 3 — number' }, { key: 'stat3_lbl', label: 'Stat 3 — label' },
-    { key: 'stat4_num', label: 'Stat 4 — number' }, { key: 'stat4_lbl', label: 'Stat 4 — label' },
+  skills: [
+    {name:'Meta Ads Manager', pct:95}, {name:'Short-Form Video', pct:92}, {name:'Content Strategy', pct:90},
+    {name:'Reporting & Analysis', pct:88}, {name:'Design (Canva/PS)', pct:85}, {name:'Business Development', pct:80},
+  ],
+  experience: [
+    {date:'AUG 2025 – FEB 2026', title:'Digital Marketing Manager', title_note:'', org:'Mophones, Kathmandu', description:'Owned social presence end-to-end — strategy, filming, editing, publishing; trend-based Reels drove organic reach and daily sales.'},
+    {date:'OCT 2023 – MAY 2025', title:'Digital Marketing Manager', title_note:'', org:'EDF Admissions, Baneshwor', description:'Ran lead-gen & awareness Meta Ads across USA/UK/AU; built content calendars and email nurture sequences.'},
+    {date:'MAY 2024 – JUL 2024', title:'Digital Marketing Strategist', title_note:'(Freelance)', org:'Angels Dental Clinic', description:'Built a full social strategy solo — research through scheduling.'},
+    {date:'OCT 2022 – APR 2023', title:'Digital Marketing Lead', title_note:'', org:'Space 4K Television', description:'Real-time content around breaking news and live events; ran paid social targeting and news-portal SEO.'},
+    {date:'APR 2020 – JUL 2022', title:'Digital Marketing Strategist', title_note:'', org:'Gyapu Marketplace', description:'Promoted within 16 months of starting; multi-channel campaigns across social, email & SMS.'},
+  ],
+  duel_rounds: [
+    {a: "5 Tips for Better Content", b: "I posted this Reel with 0 followers. Here's what happened in 24 hours.", correct: 'b', verdict: "Hook B wins.", insight: "Specific outcomes beat generic tips. A number and a timeframe give people a reason to stay for the reveal."},
+    {a: "One bold word, straight to a face reaction — nothing else on screen", b: "Three lines of small caption text explaining the setup before anything happens", correct: 'a', verdict: "Hook A wins.", insight: "The first frame has to read in under a second. One idea, one visual — not a paragraph to parse mid-swipe."},
+    {a: "Starts immediately, mid-action — no intro", b: "Opens with a 3-second logo animation before the content begins", correct: 'a', verdict: "Hook A wins.", insight: "Every second before the value starts is a second people leave. Cut the intro, open on the moment."},
+  ],
+  blog_posts: [
+    {href:'https://www.linkedin.com/posts/subash-jayana-shrestha-a38202207_ai-artificialintelligence-digitalmarketing-activity-7484169298706321408-7gTt', image_url:'', alt:'Google Developer Group x UTS event display', title:'AI, Innovation & Community', description:'On attending a Google Developer Group (GDG) x UTS session on "Using AI to Land Your First Tech Role" — building a tech career is as much about mindset, community, and adapting to change as it is about tools.', meta_left:'Jul 2026 · 18 reactions', meta_right:'Read on LinkedIn →'},
+    {href:'https://www.linkedin.com/posts/subash-jayana-shrestha-a38202207_digitalmarketing-contentstrategy-socialmediamarketing-activity-7464958630224809984-Zzqr', image_url:'', alt:'Infographic: The Fastest Way to Judge a Reel — Retention vs Views', title:"Don't Judge a Reel by Views, Focus on Retention", description:'Views can be pushed by the algorithm — retention is earned. Why the drop-off curve tells you more about hook strength, pacing, and CTA placement than any view count.', meta_left:'Jun 2026 · 5 reactions', meta_right:'Read on LinkedIn →'},
+    {href:'https://www.linkedin.com/posts/subash-jayana-shrestha-a38202207_metaads-digitalmarketing-performancemarketing-activity-7460663965489049600-mWsj', image_url:'', alt:'Infographic: Meta Ads Terms 2026 — 7 days, 10 essential topics to master Meta Ads', title:'Meta Ads Terms 2026: 7 Days, 10 Essential Topics', description:'Meta Ads success starts with the fundamentals — from campaign structure and CTR/ROAS to audience targeting, tracking, budgeting, and creative strategy. A cheat sheet for leveling up step by step.', meta_left:'Jun 2026 · 10 reactions', meta_right:'Read on LinkedIn →'},
+  ],
+  articles: [
+    {href:'https://newbusinessage.com/news/38250/gyapu-marketplace-born-in-lockdown/', image_url:'', alt:'The Gyapu Marketplace team, photographed for New Business Age', title:'Gyapu Marketplace: Born in Lockdown', description:"How the e-commerce platform grew through Nepal's 2020 lockdown, profiled in New Business Age — I joined that same year and helped run its social presence through the growth that followed.", meta_left:'Jul 2020 · New Business Age', meta_right:'Read the feature →'},
+    {href:'https://www.facebook.com/share/p/1Eai1ydYhM/?mibextid=wwXIfr', image_url:'', alt:"The Gyapu Nepal team celebrating the company's 2-year anniversary", title:"Gyapu's 2-Year Anniversary", description:"Two years in, still growing — a team milestone from my time running Gyapu's social presence, marked with the people who built it.", meta_left:'Apr 2022', meta_right:'View post →'},
+  ],
+  off_pitch: [
+    {title:'Soccer', description:'Patient build-up before the shot.'},
+    {title:'Futsal', description:'Small pitch, fast decisions.'},
+    {title:'Basketball', description:'Tempo and spacing, every possession.'},
+  ],
+  fit_items: [
+    {need:'I need someone who can shoot and edit Reels — not just plan them.', proof:'500+ Reels scripted, filmed, and edited solo. No production team, no hand-offs.'},
+    {need:'I need Meta Ads that convert, not just look good.', proof:'Leads at $0.24–$0.42 per lead, reach past 900K on a single flight — tracked in Ads Manager, not estimated.'},
+    {need:'I need someone based in Sydney who can start now.', proof:'Already relocated to Parramatta. Full AU work rights. Open to junior–mid roles today.'},
+    {need:'I need one person to own the whole function, not a slice of it.', proof:'Strategy, content, paid, and reporting — solo, across 6 brands and 5 industries.'},
+    {need:'I need proof, not a portfolio deck.', proof:'Every campaign number on this site is sourced from live Meta Ads Manager reporting.'},
+  ],
+  faq: [
+    {question:'What does Subash specialize in?', answer:'Meta Ads (Facebook/Instagram), short-form video content strategy, and end-to-end social media management — from filming and editing to ad performance reporting.'},
+    {question:'Is Subash currently available for work?', answer:'Yes — open to junior–mid digital marketing and social media roles based in Sydney, full Australian work rights.'},
+    {question:'What tools does Subash use?', answer:'Meta Ads Manager, CapCut, Canva and Photoshop, and standard content calendar/email & SMS marketing tools.'},
+    {question:'Where is Subash based?', answer:'Parramatta, NSW 2150, Australia.'},
+    {question:'How can I contact Subash?', answer:'Use the contact form on this site, or reach out directly via LinkedIn, WhatsApp, or phone — links are in the Connect section below.'},
+  ],
+};
+// About paragraphs default text lives only on the live page (they contain
+// inline <mark>/<i> markup index.html renders directly) — leave blank here
+// so the dashboard shows real current text pulled from saved content once
+// it exists, and an empty starting point otherwise.
+
+const SIMPLE_SECTIONS = {
+  hero: [
+    {key:'hero_eyebrow', label:'Eyebrow line'},
+    {key:'overview', label:'Overview paragraph', multiline:true},
+    {key:'stat1_num', label:'Stat 1 — number'}, {key:'stat1_lbl', label:'Stat 1 — label'},
+    {key:'stat2_num', label:'Stat 2 — number'}, {key:'stat2_lbl', label:'Stat 2 — label'},
+    {key:'stat3_num', label:'Stat 3 — number'}, {key:'stat3_lbl', label:'Stat 3 — label'},
+    {key:'stat4_num', label:'Stat 4 — number'}, {key:'stat4_lbl', label:'Stat 4 — label'},
   ],
   about: [
-    { key: 'about_p1', label: 'Paragraph 1', multiline: true },
-    { key: 'about_p2', label: 'Paragraph 2', multiline: true },
-    { key: 'about_p3', label: 'Paragraph 3', multiline: true },
+    {key:'about_p1', label:'Paragraph 1', multiline:true},
+    {key:'about_p2', label:'Paragraph 2', multiline:true},
+    {key:'about_p3', label:'Paragraph 3', multiline:true},
+  ],
+  journey: [
+    {key:'journey_statement', label:'Statement headline'},
+    {key:'journey_statement_sub', label:'Statement subtext', multiline:true},
   ],
   contact: [
-    { key: 'contact_headline', label: 'Headline' },
-    { key: 'contact_sub', label: 'Subtext', multiline: true },
+    {key:'contact_headline', label:'Contact panel headline'},
+    {key:'contact_sub', label:'Contact panel subtext', multiline:true},
+    {key:'contact_email', label:'Email address'},
+    {key:'contact_phone', label:'Phone number'},
+    {key:'contact_whatsapp', label:'WhatsApp link'},
+    {key:'contact_address', label:'Address'},
+    {key:'linkedin_url', label:'LinkedIn URL'},
+    {key:'instagram_handle', label:'Instagram handle (no @)'},
+    {key:'facebook_url', label:'Facebook URL'},
+  ],
+  seo: [
+    {key:'seo_title', label:'Page title'},
+    {key:'seo_description', label:'Meta description', multiline:true},
   ],
 };
 
+const LIST_SECTIONS = {
+  campaigns: {
+    itemLabel: 'Campaign',
+    fields: [
+      {key:'category', label:'Category', type:'select', options:[['lead','Lead generation'],['aware','Awareness']]},
+      {key:'title', label:'Title'},
+      {key:'metric1_value', label:'Metric 1 — value'}, {key:'metric1_label', label:'Metric 1 — label'},
+      {key:'metric2_value', label:'Metric 2 — value'}, {key:'metric2_label', label:'Metric 2 — label'},
+    ],
+  },
+  skills: { itemLabel:'Skill', fields:[{key:'name',label:'Skill name'},{key:'pct',label:'Proficiency % (0–100)'}] },
+  experience: {
+    itemLabel:'Role', fields:[
+      {key:'date', label:'Dates'}, {key:'title', label:'Role title'}, {key:'title_note', label:'Title note (optional, e.g. "(Freelance)")'},
+      {key:'org', label:'Organization'}, {key:'description', label:'Description', multiline:true},
+    ],
+  },
+  duel_rounds: {
+    itemLabel:'Round', fields:[
+      {key:'a', label:'Option A'}, {key:'b', label:'Option B'},
+      {key:'correct', label:'Correct answer', type:'select', options:[['a','Option A'],['b','Option B']]},
+      {key:'verdict', label:'Verdict text'}, {key:'insight', label:'Insight text', multiline:true},
+    ],
+  },
+  blog_posts: {
+    itemLabel:'Post', fields:[
+      {key:'href', label:'LinkedIn post URL'},
+      {key:'image_url', label:'Image URL (leave blank to keep current image)'},
+      {key:'alt', label:'Image alt text'},
+      {key:'title', label:'Title'}, {key:'description', label:'Description', multiline:true},
+      {key:'meta_left', label:'Meta (left) — e.g. "Jul 2026 · 18 reactions"'},
+      {key:'meta_right', label:'Meta (right) — e.g. "Read on LinkedIn →"'},
+    ],
+  },
+  articles: {
+    itemLabel:'Article', fields:[
+      {key:'href', label:'Article/post URL'},
+      {key:'image_url', label:'Image URL (leave blank to keep current image)'},
+      {key:'alt', label:'Image alt text'},
+      {key:'title', label:'Title'}, {key:'description', label:'Description', multiline:true},
+      {key:'meta_left', label:'Meta (left) — e.g. "Jul 2020 · New Business Age"'},
+      {key:'meta_right', label:'Meta (right) — e.g. "Read the feature →"'},
+    ],
+  },
+  off_pitch: { itemLabel:'Hobby', fields:[{key:'title',label:'Title'},{key:'description',label:'Description'}] },
+  fit_items: { itemLabel:'Item', fields:[{key:'need',label:'Need statement'},{key:'proof',label:'Proof statement',multiline:true}] },
+  faq: { itemLabel:'Question', fields:[{key:'question',label:'Question'},{key:'answer',label:'Answer',multiline:true}] },
+};
+
+const NAV_ITEMS = [
+  {id:'overview', label:'Overview'},
+  {id:'hero', label:'Hero & Stats'},
+  {id:'about', label:'About'},
+  {id:'campaigns', label:'Campaigns'},
+  {id:'skills', label:'Skills'},
+  {id:'experience', label:'Experience'},
+  {id:'journey', label:'Journey'},
+  {id:'blog', label:'Blog'},
+  {id:'articles', label:'Articles'},
+  {id:'off_pitch', label:'Off the Pitch'},
+  {id:'fit_items', label:'Why Hire Me'},
+  {id:'faq', label:'FAQ'},
+  {id:'contact', label:'Contact & Social'},
+  {id:'seo', label:'SEO & AI Visibility'},
+];
+
+let state = null;
 let loggedInEmail = null;
 
-async function loadPublishedContent(){
-  if (!isConfigured) return {};
-  const { data, error } = await sb.from('site_content').select('content').eq('id', 1).single();
-  if (error || !data || !data.content) return {};
-  return data.content;
-}
-
-function buildCmsSection(containerId, fields, content){
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
+function buildSimplePanel(container, fields){
+  container.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'simple-card';
   fields.forEach(f => {
-    const value = content[f.key] || '';
     const wrap = document.createElement('div');
     wrap.className = 'field';
-    wrap.innerHTML = f.multiline
-      ? `<label>${f.label}</label><textarea rows="3" data-cms-input="${f.key}"></textarea>`
-      : `<label>${f.label}</label><input type="text" data-cms-input="${f.key}">`;
-    el.appendChild(wrap);
-    el.querySelector(`[data-cms-input="${f.key}"]`).value = value;
+    const label = document.createElement('label');
+    label.textContent = f.label;
+    wrap.appendChild(label);
+    const input = document.createElement(f.multiline ? 'textarea' : 'input');
+    if (f.multiline) input.rows = 3;
+    else input.type = 'text';
+    input.value = state[f.key] || '';
+    input.addEventListener('input', () => { state[f.key] = input.value; });
+    wrap.appendChild(input);
+    card.appendChild(wrap);
+  });
+  container.appendChild(card);
+}
+
+function buildListPanel(container, sectionKey, fields, itemLabel){
+  container.innerHTML = '';
+  const listWrap = document.createElement('div');
+  container.appendChild(listWrap);
+
+  function renderCard(item, idx, arr){
+    const card = document.createElement('div');
+    card.className = 'list-card';
+    const head = document.createElement('div');
+    head.className = 'list-card-head';
+    const idxEl = document.createElement('span');
+    idxEl.className = 'idx';
+    idxEl.textContent = itemLabel + ' ' + (idx + 1);
+    const actions = document.createElement('div');
+    actions.className = 'list-card-actions';
+    const up = document.createElement('button'); up.className='icon-btn'; up.type='button'; up.textContent='↑'; up.title='Move up';
+    up.disabled = idx === 0;
+    up.addEventListener('click', () => { if (idx>0){ [arr[idx-1],arr[idx]] = [arr[idx],arr[idx-1]]; renderList(); } });
+    const down = document.createElement('button'); down.className='icon-btn'; down.type='button'; down.textContent='↓'; down.title='Move down';
+    down.disabled = idx === arr.length - 1;
+    down.addEventListener('click', () => { if (idx<arr.length-1){ [arr[idx+1],arr[idx]] = [arr[idx],arr[idx+1]]; renderList(); } });
+    const del = document.createElement('button'); del.className='icon-btn danger'; del.type='button'; del.textContent='✕'; del.title='Remove';
+    del.addEventListener('click', () => { arr.splice(idx,1); renderList(); });
+    actions.appendChild(up); actions.appendChild(down); actions.appendChild(del);
+    head.appendChild(idxEl); head.appendChild(actions);
+    card.appendChild(head);
+    fields.forEach(f => {
+      const wrap = document.createElement('div');
+      wrap.className = 'field';
+      const label = document.createElement('label');
+      label.textContent = f.label;
+      wrap.appendChild(label);
+      let input;
+      if (f.type === 'select'){
+        input = document.createElement('select');
+        f.options.forEach(([val,text]) => {
+          const opt = document.createElement('option');
+          opt.value = val; opt.textContent = text;
+          if (item[f.key] === val) opt.selected = true;
+          input.appendChild(opt);
+        });
+      } else {
+        input = document.createElement(f.multiline ? 'textarea' : 'input');
+        if (f.multiline) input.rows = 3; else input.type = 'text';
+        input.value = item[f.key] != null ? item[f.key] : '';
+      }
+      input.addEventListener('input', () => { item[f.key] = input.value; });
+      if (f.type === 'select') input.addEventListener('change', () => { item[f.key] = input.value; });
+      wrap.appendChild(input);
+      card.appendChild(wrap);
+    });
+    return card;
+  }
+
+  function renderList(){
+    listWrap.innerHTML = '';
+    state[sectionKey].forEach((item, idx) => listWrap.appendChild(renderCard(item, idx, state[sectionKey])));
+  }
+  renderList();
+
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-item-btn';
+  addBtn.type = 'button';
+  addBtn.textContent = '+ Add ' + itemLabel.toLowerCase();
+  addBtn.addEventListener('click', () => {
+    const blank = {};
+    fields.forEach(f => { blank[f.key] = f.type === 'select' ? f.options[0][0] : ''; });
+    state[sectionKey].push(blank);
+    renderList();
+  });
+  container.appendChild(addBtn);
+}
+
+function buildOverviewPanel(container){
+  container.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'simple-card';
+  card.innerHTML = '<p style="margin:0 0 6px; font-size:14px; line-height:1.7; color:var(--text-soft);">Everything here writes to one Supabase table and goes live on the site the moment you hit <b>Save changes</b> at the bottom — no redeploy needed.</p><p style="margin:0; font-size:13px; color:var(--text-faint); line-height:1.7;">Use the sidebar to jump to a section. List sections (Campaigns, Skills, Experience, Blog, Articles, Off the Pitch, Why Hire Me, FAQ, Journey rounds) support adding, removing, and reordering items.</p>';
+  container.appendChild(card);
+  const grid = document.createElement('div');
+  grid.className = 'overview-grid';
+  const counts = [
+    ['campaigns','Campaigns'], ['skills','Skills'], ['experience','Experience roles'],
+    ['blog_posts','Blog posts'], ['articles','Articles'], ['faq','FAQ items'],
+  ];
+  counts.forEach(([key,label]) => {
+    const stat = document.createElement('div');
+    stat.className = 'overview-stat';
+    const n = document.createElement('div'); n.className='n'; n.textContent = (state[key]||[]).length;
+    const l = document.createElement('div'); l.className='l'; l.textContent = label;
+    stat.appendChild(n); stat.appendChild(l);
+    grid.appendChild(stat);
+  });
+  container.appendChild(grid);
+}
+
+function buildSEOPanel(container){
+  container.innerHTML = '';
+  const note = document.createElement('div');
+  note.className = 'seo-note';
+  note.innerHTML = '<b>How this works:</b> Page title and meta description update live and help Google\'s indexed listing over time. They do <b>not</b> change how the page looks when shared on Facebook, LinkedIn, Twitter/X, or Slack — those platforms read the page\'s static source directly and never run JavaScript, so their preview cards always use the site\'s built-in defaults. Structured data (the machine-readable summary AI systems and Google read) is generated automatically from your Skills and Contact & Social sections — nothing to edit here.';
+  container.appendChild(note);
+  buildSimplePanel(container, SIMPLE_SECTIONS.seo);
+  // buildSimplePanel replaces container.innerHTML, so re-add the note after
+  container.insertBefore(note, container.firstChild);
+}
+
+function renderAllPanels(){
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  NAV_ITEMS.forEach(item => {
+    const panel = document.createElement('div');
+    panel.className = 'panel';
+    panel.id = 'panel-' + item.id;
+    const head = document.createElement('div');
+    head.className = 'panel-head';
+    const h1 = document.createElement('h1'); h1.textContent = item.label;
+    head.appendChild(h1);
+    panel.appendChild(head);
+    const body = document.createElement('div');
+    panel.appendChild(body);
+    main.appendChild(panel);
+
+    if (item.id === 'overview') buildOverviewPanel(body);
+    else if (item.id === 'seo') buildSEOPanel(body);
+    else if (SIMPLE_SECTIONS[item.id]) buildSimplePanel(body, SIMPLE_SECTIONS[item.id]);
+    else if (LIST_SECTIONS[item.id]) buildListPanel(body, item.id, LIST_SECTIONS[item.id].fields, LIST_SECTIONS[item.id].itemLabel);
   });
 }
+
+function renderSidebar(){
+  const nav = document.getElementById('side-nav');
+  nav.innerHTML = '';
+  NAV_ITEMS.forEach(item => {
+    const a = document.createElement('a');
+    a.className = 'side-link';
+    a.href = '#' + item.id;
+    a.textContent = item.label;
+    nav.appendChild(a);
+  });
+}
+
+function showSection(id){
+  if (!NAV_ITEMS.some(i => i.id === id)) id = 'overview';
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+  document.querySelectorAll('.side-link').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+}
+window.addEventListener('hashchange', () => showSection(location.hash.replace('#','')));
 
 (async function init(){
   const gate = document.getElementById('gate');
@@ -252,23 +572,24 @@ function buildCmsSection(containerId, fields, content){
     return;
   }
   loggedInEmail = session.user.email;
-  document.getElementById('admin-user-email').textContent = loggedInEmail || '';
-  const content = await loadPublishedContent();
-  buildCmsSection('cms-fields-hero', CMS_FIELDS.hero, content);
-  buildCmsSection('cms-fields-stats', CMS_FIELDS.stats, content);
-  buildCmsSection('cms-fields-about', CMS_FIELDS.about, content);
-  buildCmsSection('cms-fields-contact', CMS_FIELDS.contact, content);
+
+  const { data } = await sb.from('site_content').select('content').eq('id', 1).single();
+  state = Object.assign({}, DEFAULT_CONTENT, (data && data.content) || {});
+  // Arrays must exist even if not yet saved, so list editors have something to render.
+  Object.keys(LIST_SECTIONS).forEach(key => { if (!Array.isArray(state[key]) || !state[key].length) state[key] = DEFAULT_CONTENT[key]; });
+
+  renderSidebar();
+  renderAllPanels();
+  showSection(location.hash.replace('#','') || 'overview');
+
   gate.style.display = 'none';
-  document.getElementById('dashboard').style.display = '';
+  document.getElementById('shell').classList.add('open');
+  document.getElementById('save-bar').style.display = 'flex';
 })();
 
 document.getElementById('save-content').addEventListener('click', async () => {
   const statusEl = document.getElementById('save-status');
-  const content = {};
-  document.querySelectorAll('[data-cms-input]').forEach(input => {
-    content[input.dataset.cmsInput] = input.value;
-  });
-  const { error } = await sb.from('site_content').update({ content }).eq('id', 1);
+  const { error } = await sb.from('site_content').update({ content: state }).eq('id', 1);
   if (error) {
     statusEl.textContent = "Couldn't save — check the RLS policy allows updates for authenticated users.";
   } else {

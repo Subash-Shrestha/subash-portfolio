@@ -99,9 +99,25 @@ immediately, no redeploy needed.
 
 ## What's editable right now
 
-The dashboard currently covers the hero eyebrow/overview text, the four stat
-numbers, the three About paragraphs, and the contact panel headline/subtext —
-tagged in `index.html` with `data-cms="..."` attributes. To make another
-section editable later, add a matching `data-cms="your_key"` attribute to
-that element in `index.html`, and a matching entry to the `CMS_FIELDS` object
-in `dashboard.html`.
+The dashboard covers the whole site: Hero & Stats, About, Campaigns, Skills,
+Experience, the Journey/Hook Duel copy, Blog, Articles, Off the Pitch, Why
+Hire Me, FAQ, Contact & Social links, and SEO (page title/meta description).
+Everything saves to one `site_content.content` jsonb blob — simple fields use
+`data-cms="key"` attributes in `index.html`; repeating sections (Campaigns,
+Skills, etc.) are JSON arrays rendered by matching `render*()` functions in
+`index.html`, with add/remove/reorder support in `dashboard.html`'s list
+editor.
+
+A few known limits, by design:
+- **No image upload.** The 6 photos on the site stay as their current image
+  unless a list item's "Image URL" field is filled in with a link to an
+  externally-hosted image — there's no upload/storage wired up.
+- **Social-preview cards don't update from the dashboard.** Facebook,
+  LinkedIn, Twitter/X, and Slack read the page's static HTML for their
+  preview cards and never run JavaScript, so SEO title/description edits
+  only affect Google's own indexed listing over time, not those previews.
+- **Inline text styling is dropped when a field is edited.** A few defaults
+  (About paragraphs, one Experience bullet) have highlighted words in the
+  original copy; editing those fields via the dashboard replaces them with
+  plain text, since the dashboard only ever writes safe plain text — never
+  raw HTML — to avoid a stored-XSS risk on a public site.
