@@ -1,10 +1,10 @@
-# Connecting the admin panel to Supabase
+# Connecting the admin dashboard to Supabase
 
-The site's admin login and content editing (the "Admin" button, bottom-right)
+The site's admin login (`login.html`) and content editing (`dashboard.html`)
 run on [Supabase](https://supabase.com) — a hosted Postgres database with a
 real authentication service. Nothing about it works until you complete the
-steps below; until then, clicking "Admin" just tells you it isn't connected
-yet.
+steps below; until then, the "Admin" button just tells you it isn't
+connected yet.
 
 This only works on the live site (GitHub Pages). It will not work inside a
 Claude Artifact preview link — that environment blocks all outside network
@@ -23,8 +23,9 @@ In your project: **Settings → API**. Copy:
 - **Project URL**
 - **anon public** key
 
-Open `index.html` in this repo, find this block near the bottom of the
-`<script>` section, and paste them in:
+Paste both into **three** files in this repo — `index.html`, `login.html`,
+and `dashboard.html` — each has this same block near the bottom of the
+`<script>` section:
 
 ```js
 const SUPABASE_URL = 'YOUR_SUPABASE_URL';
@@ -52,14 +53,16 @@ table that anyone can read but only a signed-in user can update.
   anywhere else that isn't a password manager — treat anything typed outside
   a password manager as potentially exposed.
 - Tick "Auto Confirm User" so it's ready to use immediately.
+- There is no signup form anywhere on the site by design — this is a
+  single-admin project, so the only way to create an account is here, in
+  the dashboard.
 
-This is your real login for the site's "Admin" button (Step 1: email +
-password).
+This is your real login on `login.html` (Step 1: email + password).
 
 ## 5. Turn on the second verification step
 
-Step 2 of login sends a one-time code and requires you to enter it before the
-admin panel unlocks — this is the "double authentication" part.
+Step 2 of login sends a one-time code and requires you to enter it before
+`dashboard.html` unlocks — this is the "double authentication" part.
 
 - **Email (default, works immediately):** Supabase sends OTP emails out of
   the box on the free tier. No setup needed — this is already active.
@@ -67,7 +70,7 @@ admin panel unlocks — this is the "double authentication" part.
   provider. In your project: **Authentication → Providers → Phone**, enable
   it, and follow Supabase's instructions to connect Twilio (or another
   supported provider) with your own account and billing. Once that's done,
-  change one line in `index.html`:
+  change one line in `login.html`:
 
   ```js
   const OTP_CHANNEL = 'phone'; // was 'email'
@@ -77,15 +80,28 @@ admin panel unlocks — this is the "double authentication" part.
 
 ## 6. Try it
 
-On the live site, click **Admin** (bottom-right) → sign in with your email
-and password → enter the code from your inbox → the panel opens. Edit any
-field and hit **Save changes** — it writes to Supabase and every visitor sees
-the update immediately, no redeploy needed.
+On the live site, click **Admin** (bottom-right of the home page) → it opens
+`login.html` → sign in with your email and password → enter the code from
+your inbox → you land on `dashboard.html`. Edit any field and hit **Save
+changes** — it writes to Supabase and every visitor sees the update
+immediately, no redeploy needed.
+
+## Page map
+
+- `index.html` — the public site. Reads published content from Supabase
+  (read-only, no login required) and links to `login.html` via the Admin
+  button.
+- `login.html` — two-step sign-in (password, then one-time code). Redirects
+  to `dashboard.html` on success, or straight there if already signed in.
+- `dashboard.html` — the editing screen. Redirects back to `login.html` if
+  there's no valid session. Has its own **Sign out** button and a **View
+  live site** link back to `index.html`.
 
 ## What's editable right now
 
-The panel currently covers the hero eyebrow/overview text, the four stat
+The dashboard currently covers the hero eyebrow/overview text, the four stat
 numbers, the three About paragraphs, and the contact panel headline/subtext —
-tagged in the HTML with `data-cms="..."` attributes. To make another section
-editable later, add a matching `data-cms="your_key"` attribute to that
-element and a matching entry to the `CMS_FIELDS` object in `index.html`.
+tagged in `index.html` with `data-cms="..."` attributes. To make another
+section editable later, add a matching `data-cms="your_key"` attribute to
+that element in `index.html`, and a matching entry to the `CMS_FIELDS` object
+in `dashboard.html`.

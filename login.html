@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YV5R24H285"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YV5R24H285');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin sign in — Subash Jayana Shrestha</title>
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('theme');
+    if(saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+  }catch(e){}
+})();
+</script>
+<style>
+:root{
+  --bg:#0E0F12; --card:#17181D; --card-hi:#1D1F26; --line:#2A2C34;
+  --text:#F4F3EF; --text-soft:#A6A9B4; --text-faint:#6C6F7B;
+  --coral:#FF6B4A; --lime:#C6FF6B; --sky:#6BB8FF; --violet:#B48CFF; --pink:#FF6BA6;
+  --nav-bg:rgba(14,15,18,0.7);
+  --danger:#FF8A6B;
+  --on-accent:#101012;
+  --radius:22px;
+  --font-display: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: system-ui, "Segoe UI", -apple-system, Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]){
+    --bg:#F3F4F6; --card:#FFFFFF; --card-hi:#ECEEF1; --line:#DFE2E7;
+    --text:#14161B; --text-soft:#52565F; --text-faint:#868A93;
+    --coral:#E8542E; --lime:#4F8F1E; --sky:#2170D8; --violet:#7C4FE0; --pink:#D93E80;
+    --nav-bg:rgba(243,244,246,0.75);
+    --danger:#C23B1F;
+    --on-accent:#FFFFFF;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F3F4F6; --card:#FFFFFF; --card-hi:#ECEEF1; --line:#DFE2E7;
+  --text:#14161B; --text-soft:#52565F; --text-faint:#868A93;
+  --coral:#E8542E; --lime:#4F8F1E; --sky:#2170D8; --violet:#7C4FE0; --pink:#D93E80;
+  --nav-bg:rgba(243,244,246,0.75);
+  --danger:#C23B1F;
+  --on-accent:#FFFFFF;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+body{margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:var(--font-body); -webkit-font-smoothing:antialiased; transition:background .4s ease, color .4s ease; display:flex; flex-direction:column;}
+h1,h3{font-family:var(--font-display); font-weight:700; letter-spacing:-0.01em; margin:0;}
+
+nav{position:sticky; top:0; z-index:30; backdrop-filter:blur(14px); background:var(--nav-bg); border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1120px; margin:0 auto; padding:16px 24px; display:flex; justify-content:space-between; align-items:center;}
+.brand-link{display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; font-family:var(--font-display); color:var(--text);}
+.brand-link svg{width:14px; height:14px; stroke:var(--text-faint);}
+.theme-toggle{
+  position:relative; width:36px; height:36px; border-radius:50%;
+  background:var(--card-hi); border:1px solid var(--line); cursor:pointer;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s ease, background .4s ease, transform .3s ease;
+}
+.theme-toggle:hover{border-color:var(--coral); transform:translateY(-1px);}
+.theme-toggle svg{position:absolute; width:17px; height:17px; stroke:var(--text); fill:none; stroke-width:1.8; transition:opacity .35s ease, transform .5s cubic-bezier(.2,.8,.2,1);}
+.theme-toggle .icon-sun{opacity:0; transform:rotate(-90deg) scale(.4);}
+.theme-toggle .icon-moon{opacity:1; transform:rotate(0) scale(1);}
+:root[data-theme="light"] .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
+:root[data-theme="light"] .theme-toggle .icon-moon{opacity:0; transform:rotate(90deg) scale(.4);}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
+  :root:not([data-theme="dark"]) .theme-toggle .icon-moon{opacity:0; transform:rotate(90deg) scale(.4);}
+}
+
+main{flex:1; display:flex; align-items:center; justify-content:center; padding:40px 20px;}
+.auth-card{width:100%; max-width:400px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:32px;}
+.auth-card h1{font-size:20px; margin-bottom:6px;}
+.auth-card .sub{font-size:13px; color:var(--text-soft); line-height:1.55; margin-bottom:24px;}
+.field{margin-bottom:14px;}
+.field label{font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-faint); display:block; margin-bottom:6px;}
+.field input{
+  width:100%; background:var(--bg); border:1px solid var(--line); border-radius:8px;
+  color:var(--text); padding:11px 12px; font-size:14px; font-family:var(--font-body); outline:none;
+}
+.field input:focus{border-color:var(--coral);}
+#auth-error, #otp-error{color:var(--danger); font-size:12.5px; margin-top:8px; display:none; line-height:1.5;}
+.btn-primary{width:100%; padding:12px; border-radius:8px; border:none; background:var(--coral); color:#fff; font-weight:700; font-size:13.5px; cursor:pointer; margin-top:8px; font-family:var(--font-body);}
+.btn-secondary{width:100%; padding:11px; border-radius:8px; margin-top:10px; background:transparent; border:1px solid var(--line); color:var(--text-soft); cursor:pointer; font-family:var(--font-body); font-size:13px;}
+code{background:var(--bg); border:1px solid var(--line); border-radius:4px; padding:1px 5px; font-family:var(--font-mono); font-size:11.5px;}
+
+footer{text-align:center; padding:20px; font-size:11.5px; color:var(--text-faint);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Subash JS
+    </a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <div class="auth-card" id="config-card" style="display:none;">
+    <h1>Backend not connected yet</h1>
+    <p class="sub">This admin login talks to a Supabase project for real authentication, but no project is wired up in this file yet. Set <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script, and follow <code>supabase/README.md</code> in this repo to create the project, the content table, and your admin login.</p>
+  </div>
+
+  <div class="auth-card" id="login-step-password">
+    <h1>Admin sign in</h1>
+    <p class="sub">Step 1 of 2 — sign in with your email and password.</p>
+    <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" autocomplete="username"></div>
+    <div class="field"><label for="login-pass">Password</label><input type="password" id="login-pass" autocomplete="current-password"></div>
+    <div id="auth-error"></div>
+    <button class="btn-primary" id="login-submit">Continue →</button>
+    <a href="index.html" style="text-decoration:none;"><button class="btn-secondary" type="button">Cancel</button></a>
+  </div>
+
+  <div class="auth-card" id="login-step-otp" style="display:none;">
+    <h1>Verify it's you</h1>
+    <p class="sub" id="otp-sub">Step 2 of 2 — enter the 6-digit code just sent to your email.</p>
+    <div class="field"><label for="login-otp">Verification code</label><input type="text" id="login-otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></div>
+    <div id="otp-error"></div>
+    <button class="btn-primary" id="otp-submit">Verify &amp; sign in</button>
+    <button class="btn-secondary" id="otp-cancel" type="button">Cancel</button>
+  </div>
+</main>
+
+<footer>Subash Jayana Shrestha — admin access only</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const themeToggle = document.getElementById('theme-toggle');
+function currentTheme(){
+  const attr = document.documentElement.getAttribute('data-theme');
+  if(attr) return attr;
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+themeToggle.addEventListener('click', ()=>{
+  const next = currentTheme() === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('theme', next); }catch(e){}
+});
+
+/* ===================== ADMIN LOGIN (Supabase) =====================
+   Setup instructions: supabase/README.md in this repo.
+   Nothing below this point can authenticate anyone until
+   SUPABASE_URL and SUPABASE_ANON_KEY are replaced with real
+   values from your own Supabase project (Project Settings → API).
+   The anon key is a PUBLIC key by Supabase's own design — it is safe
+   to ship in client code. Real security comes from Supabase's Row
+   Level Security policies (see supabase/schema.sql), not from
+   hiding this key. */
+const SUPABASE_URL = 'https://wofzvwuivsleufagkzhe.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_v5DgGrkZN5KHOi-6RyopgA_RmTfB1qG';
+// Which channel step 2 verifies through: 'email' works out of the box.
+// Switch to 'phone' only after configuring an SMS provider (e.g. Twilio)
+// under Authentication → Phone in your Supabase dashboard.
+const OTP_CHANNEL = 'email';
+
+const isConfigured = !SUPABASE_URL.startsWith('YOUR_') && !SUPABASE_ANON_KEY.startsWith('YOUR_');
+const sb = isConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+let pendingEmail = null;
+
+(async function init(){
+  if (!isConfigured) {
+    document.getElementById('config-card').style.display = '';
+    document.getElementById('login-step-password').style.display = 'none';
+    return;
+  }
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) window.location.href = 'dashboard.html';
+})();
+
+document.getElementById('login-submit').addEventListener('click', async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+  if (!email || !password) return;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'Incorrect email or password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  // Password confirmed — now require a one-time code before granting
+  // access. This is the second factor: something you know (password)
+  // plus something you have (access to this inbox/phone).
+  pendingEmail = email;
+  const otpPayload = OTP_CHANNEL === 'phone' ? { phone: email } : { email };
+  const { error: otpError } = await sb.auth.signInWithOtp(otpPayload);
+  if (otpError) {
+    errEl.textContent = 'Password correct, but the verification code could not be sent. Check your Supabase Auth settings.';
+    errEl.style.display = 'block';
+    return;
+  }
+  document.getElementById('otp-sub').textContent = `Step 2 of 2 — enter the 6-digit code just sent to your ${OTP_CHANNEL === 'phone' ? 'phone' : 'email'}.`;
+  document.getElementById('login-step-password').style.display = 'none';
+  document.getElementById('login-step-otp').style.display = '';
+});
+
+document.getElementById('otp-submit').addEventListener('click', async () => {
+  const token = document.getElementById('login-otp').value.trim();
+  const errEl = document.getElementById('otp-error');
+  errEl.style.display = 'none';
+  if (!token || !pendingEmail) return;
+  const verifyPayload = OTP_CHANNEL === 'phone'
+    ? { phone: pendingEmail, token, type: 'sms' }
+    : { email: pendingEmail, token, type: 'email' };
+  const { data, error } = await sb.auth.verifyOtp(verifyPayload);
+  if (error || !data.session) {
+    errEl.textContent = 'That code is incorrect or expired.';
+    errEl.style.display = 'block';
+    return;
+  }
+  window.location.href = 'dashboard.html';
+});
+
+document.getElementById('otp-cancel').addEventListener('click', () => {
+  document.getElementById('login-step-otp').style.display = 'none';
+  document.getElementById('login-step-password').style.display = '';
+});
+</script>
+</body>
+</html>

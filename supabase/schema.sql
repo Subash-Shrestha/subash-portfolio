@@ -22,6 +22,11 @@ create policy "Public can read site content"
 -- Only a signed-in (authenticated) user can update it — this is what
 -- the admin panel relies on. There's no INSERT/DELETE policy on purpose:
 -- the single row already exists, the panel only ever updates it.
+-- USING and WITH CHECK are identical here because there's nothing on the
+-- row itself (like a user_id) to restrict against — any authenticated
+-- user is the site's one admin.
 create policy "Authenticated users can update site content"
   on site_content for update
-  using (auth.role() = 'authenticated');
+  to authenticated
+  using (true)
+  with check (true);
